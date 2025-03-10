@@ -1,0 +1,10 @@
+debug/buttondelegate.o
+debug/connection.o
+debug/editemployeedialog.o
+debug/em.o
+debug/main.o
+debug/employe.o
+debug/qrc_resource.o
+debug/moc_buttondelegate.o
+debug/moc_editemployeedialog.o
+debug/moc_employe.o
