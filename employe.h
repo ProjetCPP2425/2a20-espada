@@ -25,6 +25,11 @@ private slots: // Ajout de "slots:"
 private:
     Ui::Employe *ui;
     em Etmp;
+    bool isValidName(const QString& name) const;
+    bool isValidEmail(const QString& email) const;
+    bool isValidPhone(int phone) const;
+    bool isValidExperience(int experience) const;
+    bool isValidPassword(const QString& password) const;
 
 
 };
