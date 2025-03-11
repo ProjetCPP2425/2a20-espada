@@ -1,0 +1,211 @@
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "rendezvous.h"
+#include <QMessageBox>
+#include <QSqlError>
+#include <QRegularExpression>
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    ui->tab_affichage->setModel(rdv.afficher());
+    ui->tab_affichage->resizeColumnsToContents();
+
+    ui->tab_affichage->update();
+    ui->tab_affichage->show();
+    ui->tab_affichage->setStyleSheet(
+        "QTableView::item:selected { "
+        "background-color: #e27396; "  // Jaune doré
+        "color: black; "
+        "}"
+        );
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::on_addRDV_clicked()
+{
+    // Récupération des données saisies
+
+    QDate date = ui->dateRDV->date();  // Récupération de la date (QDate)
+    QString heure = ui->heureRDV->time().toString("HH:mm");  // Récupération de l'heure au format "HH:mm"
+    QString mode = ui->modeRDV->currentText().trimmed();  // Récupération du mode sélectionné dans le QComboBox
+    QString objectif = ui->objectifRDV->text().trimmed();
+    QString client = ui->clientRDV->text().trimmed();
+
+    // Vérification des champs
+    if (heure.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "L'heure du rendez-vous est obligatoire.");
+        return;
+    }
+    if (mode.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Le mode du rendez-vous est obligatoire.");
+        return;
+    }
+    if (objectif.length() < 10) {
+        QMessageBox::warning(this, "Erreur", "L'objectif doit contenir au moins 10 caractères.");
+        return;
+    }
+    if (client.length() <3) {
+        QMessageBox::warning(this, "Erreur", "Le nom doit contenir au moins 3 caractères.");
+        return;
+    }
+    if (client.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Le nom du client est obligatoire.");
+        return;
+    }
+
+    // Création de l'objet RendezVous sans ID (auto-incrémenté)
+    RendezVous rdv(0, date, heure, mode, objectif, client);  // Assurer que l'ID est à 0 si auto-incrémenté
+    bool test = rdv.ajouter();  // Utilisation de la méthode correcte
+
+    if (test) {
+        QMessageBox::information(this, "Succès", "Rendez-vous ajouté avec succès.");
+
+        // Réinitialisation des champs
+        ui->dateRDV->setDate(QDate::currentDate());
+        ui->heureRDV->clear();
+        ui->modeRDV->setCurrentIndex(0);  // Réinitialiser le QComboBox
+        ui->objectifRDV->clear();
+        ui->clientRDV->clear();
+
+        // Mise à jour de l'affichage
+        ui->tab_affichage->setModel(rdv.afficher());
+        ui->tab_affichage->resizeColumnsToContents();
+    } else {
+        QMessageBox::critical(this, "Erreur", "Échec de l'ajout du rendez-vous.");
+    }
+}
+
+
+void MainWindow::on_tab_affichage_clicked(const QModelIndex &index)
+{
+    if (!index.isValid()) {
+        return;
+    }
+
+    // Récupération des valeurs depuis le tableau
+    int id = ui->tab_affichage->model()->data(index.siblingAtColumn(0)).toInt();
+    QDate date = ui->tab_affichage->model()->data(index.siblingAtColumn(1)).toDate();
+    QString heure = ui->tab_affichage->model()->data(index.siblingAtColumn(2)).toString();
+    QString mode = ui->tab_affichage->model()->data(index.siblingAtColumn(3)).toString();
+    QString objectif = ui->tab_affichage->model()->data(index.siblingAtColumn(4)).toString();
+    QString client = ui->tab_affichage->model()->data(index.siblingAtColumn(5)).toString();
+
+    // Remplissage des champs
+   // ui->idR->setText(QString::number(id));
+    ui->dateRDV->setDate(date);
+    ui->heureRDV->setTime(QTime::fromString(heure, "HH:mm"));  // Conversion en QTime
+    ui->modeRDV->setCurrentText(mode);
+    ui->objectifRDV->setText(objectif);
+    ui->clientRDV->setText(client);
+}
+
+
+void MainWindow::on_updateRDV_clicked()
+{
+    // Vérifier si une ligne est sélectionnée
+    QItemSelectionModel *selection = ui->tab_affichage->selectionModel();
+    if (!selection->hasSelection()) {
+        QMessageBox::warning(this, "Erreur", "Veuillez sélectionner une ligne à modifier.");
+        return;
+    }
+
+
+
+    // Récupérer l'ID de la ligne sélectionnée (colonne 0)
+    QModelIndex index = selection->currentIndex();
+    int id = ui->tab_affichage->model()->data(index.siblingAtColumn(0)).toInt();
+
+    qDebug() << "ID sélectionné :" << id;
+
+    if (id <= 0) {
+        QMessageBox::warning(this, "Erreur", "ID invalide.");
+        return;
+    }
+    // Récupérer les nouvelles valeurs
+
+    QDate date = ui->dateRDV->date();
+    QString heure = ui->heureRDV->time().toString("HH:mm");
+    QString mode = ui->modeRDV->currentText();
+    QString objectif = ui->objectifRDV->text().trimmed();
+    QString client = ui->clientRDV->text().trimmed();
+
+    if (mode.isEmpty()) {
+        QMessageBox::warning(this, "Erreur", "Veuillez sélectionner un mode de rendez-vous.");
+        return;
+    }
+    if (client.length() <3) {
+        QMessageBox::warning(this, "Erreur", "Le nom doit contenir au moins 3 caractères.");
+        return;
+    }
+    if (objectif.length() < 10) {
+        QMessageBox::warning(this, "Erreur", "L'objectif doit contenir au moins 10 caractères.");
+        return;
+    }
+
+
+    // Création de l'objet RendezVous et tentative de modification
+    RendezVous rdv(id, date, heure, mode, objectif, client);
+    bool test = rdv.modifier(id);
+
+    qDebug() << "Résultat modification : " << test;
+
+    if (test) {
+        QMessageBox::information(this, "Succès", "Modification effectuée.");
+
+        // Rafraîchir le tableau
+        ui->tab_affichage->setModel(rdv.afficher());
+        ui->tab_affichage->resizeColumnsToContents();
+
+        // Réinitialisation des champs
+        ui->dateRDV->setDate(QDate::currentDate());
+        ui->heureRDV->setTime(QTime::currentTime());
+        ui->modeRDV->setCurrentIndex(0);
+        ui->objectifRDV->clear();
+        ui->clientRDV->clear();
+    } else {
+        QMessageBox::critical(this, "Erreur", "Échec de la modification.");
+    }
+}
+
+
+void MainWindow::on_suppRDV_clicked()
+{
+    QItemSelectionModel *selection = ui->tab_affichage->selectionModel();
+
+    if (!selection->hasSelection()) {
+        QMessageBox::warning(this, "Erreur", "Veuillez sélectionner une ligne à supprimer.");
+        return;
+    }
+
+    QModelIndex index = selection->currentIndex();
+    int id = ui->tab_affichage->model()->data(index.siblingAtColumn(0)).toInt();  // Colonne 0 = ID_RDV
+
+    if (id < 0) {
+        QMessageBox::warning(this, "Erreur", "ID invalide. Veuillez sélectionner une ligne valide.");
+        return;
+    }
+
+    // Demande de confirmation
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this, "Confirmation", "Voulez-vous vraiment supprimer ce rendez-vous ?",
+                                  QMessageBox::Yes | QMessageBox::No);
+
+    if (reply == QMessageBox::Yes) {
+        RendezVous rdv;
+        bool test = rdv.supprimer(id);  // Suppression du rendez-vous
+
+        if (test) {
+            QMessageBox::information(this, "Succès", "Rendez-vous supprimé.");
+            ui->tab_affichage->setModel(rdv.afficher());  // Rafraîchir l'affichage
+        } else {
+            QMessageBox::critical(this, "Erreur", "Échec de la suppression.");
+        }
+    }
+}
+

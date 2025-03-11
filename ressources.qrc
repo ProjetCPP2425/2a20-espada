@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/new/prefix1"/>
+    <qresource prefix="/">
+        <file>../../Downloads/uso.jfif</file>
+        <file>../../Downloads/check-circle.svg</file>
+        <file>../../Downloads/calendar.svg</file>
+        <file>../../Downloads/align-left.svg</file>
+        <file>../../Downloads/home.svg</file>
+        <file>../../Downloads/log-out.svg</file>
+        <file>../../Downloads/pie-chart.svg</file>
+        <file>../../Downloads/file-text.svg</file>
+        <file>../../Downloads/file-text (2).svg</file>
+        <file>../../Downloads/pie-chart (1).svg</file>
+        <file>../../Downloads/search (1).svg</file>
+        <file>../../Downloads/log-out (1).svg</file>
+        <file>../../Downloads/trash-2.svg</file>
+        <file>../../Downloads/settings.svg</file>
+    </qresource>
+</RCC>
