@@ -2,47 +2,62 @@
 #define RESSOURCE_H
 
 #include <QString>
-#include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QMap>  // Ajoutez cette ligne pour inclure QMap
 
 class ressource
 {
-    QString NOM, DESCRIPTION, TYPE, LOCALISATION, ETAT;
-    int ID, QUANTITE;
-
 public:
-    // Constructeur par défaut
-    ressource() {}
+    ressource();
+    ressource(QString nom, QString description, QString type, QString localisation, int quantite, QString etat);
 
-    // Constructeur avec paramètres
-    ressource (QString nom, QString description,  QString type, QString localisation, int quantite, QString etat);
-
-    // Getters
-    int getID() { return ID; }
-    QString getNOM() { return NOM; }
-    QString getDESCRIPTION() { return DESCRIPTION; }
-    QString getTYPE() { return TYPE; }
-    QString getLOCALISATION() { return LOCALISATION; }
-    int getQUANTITE() { return QUANTITE; }
-    QString getETAT() { return ETAT; }
-
-    // Setters
-    void setID(int id) { this->ID = id; }
-    void setNom(QString n) { NOM = n; }
-    void setDescription(QString d) { DESCRIPTION = d; }
-    void setType(QString t) { TYPE = t; }
-    void setLocalisation(QString l) { LOCALISATION = l; }
-    void setQuantite(int quantite) { this->QUANTITE = quantite; }
-    void setEtat(QString e) { ETAT = e; }
-
-    // Méthodes de gestion des ressources
     bool ajouter();
+    bool supprimer(int ID);
+    bool modifier(int ID);
     QSqlQueryModel* afficher();
-    bool supprimer(int);
-    ressource trouver(int id);
-    bool modifier(int id);
-    bool isValid();  // Vérifie si la ressource est valide
+    ressource trouver(int ID);
+    bool ajouter1();
+    int getTotalResources();
+    int getTotalQuantity();
+    QMap<QString, int> getResourcesByState();  // Déclarez la fonction ici
+    bool isValid();  // Déclarez également la fonction isValid
+    QSqlQueryModel* search(const QString& searchQuery);
+    int getID() const { return ID; }
 
+    QString getNOM() const { return NOM; }
+    QString getDESCRIPTION() const { return DESCRIPTION; }
+    QString getTYPE() const { return TYPE; }
+    QString getLOCALISATION() const { return LOCALISATION; }
+    int getQUANTITE() const { return QUANTITE; }
+    QString getETAT() const { return ETAT; }
+
+    void setNom(const QString &value) { NOM = value; }
+    void setDescription(const QString &value) { DESCRIPTION = value; }
+    void setType(const QString &value) { TYPE = value; }
+    void setLocalisation(const QString &value) { LOCALISATION = value; }
+    void setQuantite(int value) { QUANTITE = value; }
+    void setEtat(const QString &value) { ETAT = value; }
+
+    void generatePDF(const QString &nom, const QString &description, const QString &type,
+                     const QString &localisation, int quantite, const QString &etat);
+
+    QSqlQueryModel*Trier_Ressources(QString critere);
+    QSqlQueryModel* recherche(const QString &searchQuery);
+
+private:
+    int ID;
+    QString NOM;
+    QString DESCRIPTION;
+    QString TYPE,text;
+    QString LOCALISATION;
+    int QUANTITE;
+    QString ETAT;
+
+    int decodingCount;
+    int totalProcessingTime;
+    QList<ressource> resourcesList;
 };
 
 #endif // RESSOURCE_H

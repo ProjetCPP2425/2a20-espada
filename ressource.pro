@@ -1,31 +1,31 @@
-QT       += core gui
-QT += sql
+QT += core gui sql
+QT += pdf
+QT += charts
+QT += core gui printsupport
+QT += printsupport
 
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+RESOURCES += ressource.qrc
+TARGET = ressource
+TEMPLATE = app
 CONFIG += c++17
+QMAKE_CXXFLAGS += -Wno-redundant-decls
 
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-RESOURCES += resources.qrc
-
+# === Fichiers sources ===
 SOURCES += \
-    connection.cpp \
     main.cpp \
-    mainwindow.cpp \
-    ressource.cpp
+    ressource.cpp \
+    connection.cpp \
+    mainwindow.cpp
 
+# === Fichiers headers ===
 HEADERS += \
     connection.h \
-    mainwindow.h \
-    ressource.h
+    ressource.h \
+    mainwindow.h
 
+# === UI (Qt Designer) ===
 FORMS += \
     mainwindow.ui
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+# === Fichier de ressources Qt ===
+
