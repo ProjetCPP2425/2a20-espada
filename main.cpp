@@ -1,15 +1,16 @@
-#include "employe.h"
-#include <QApplication>
-#include <QMessageBox>
+
+#include "mainwindow.h"
 #include "connection.h"
+#include <QMessageBox>
+#include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    connection c;
+    Connection c;
     bool test=c.createconnect();
-Employe w;
+    MainWindow w;
     if(test)
     {w.show();
         QMessageBox::information(nullptr, QObject::tr("database is open"),
@@ -24,6 +25,6 @@ Employe w;
 
 
 
-
     return a.exec();
+
 }

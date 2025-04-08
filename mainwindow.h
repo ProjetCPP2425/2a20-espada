@@ -22,7 +22,19 @@ private slots:
     void on_updateRDV_clicked();
     void on_addRDV_clicked();
     void on_suppRDV_clicked();
-    void on_tab_affichage_clicked(const QModelIndex &index);
+    void on_tab_affichage_clicked(const QModelIndex &index );
+
+
+// metiers simples
+    void on_rechercher_textChanged(const QString &text);
+
+    void on_pdf_clicked();
+
+    void on_mode_clicked();
+
+    void on_date_clicked();
+
+    void on_statbutton_clicked();
 
 private:
     Ui::MainWindow *ui;

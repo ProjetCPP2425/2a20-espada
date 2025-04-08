@@ -33,11 +33,16 @@ public:
     QSqlQueryModel* afficher();
     bool modifier(int);
     bool supprimer(int);
+    // metiers simples
+    QSqlQueryModel* recherche(const QString &searchQuery);
+    QSqlQueryModel* Trier_RDV(QString critere);
+
+
 
 private:
     int id_rdv;
     QDate date_rdv;
-    QString heure_rdv, mode_rdv, objectif, nom_client;
+    QString heure_rdv, mode_rdv, objectif, nom_client,text;
 };
 
 #endif // RENDEZVOUS_H

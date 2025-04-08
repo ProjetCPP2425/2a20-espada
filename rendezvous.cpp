@@ -70,14 +70,16 @@ void RendezVous::set_nom_client(QString nomClient) {
 // Ajouter un rendez-vous
 bool RendezVous::ajouter() {
     QSqlQuery query;
-    query.prepare("INSERT INTO RENDEZ_VOUS ( DATE_RDV, HEURE_RDV, MODE_RDV, OBJECTIF, NOM_CLIENT) "
-                  "VALUES ( :date_rdv, :heure_rdv, :mode_rdv, :objectif, :nom_client)");
+    query.prepare("INSERT INTO RENDEZ_VOUS (NOM_CLIENT, DATE_RDV, HEURE_RDV,OBJECTIF, MODE_RDV) "
+                  "VALUES ( :nom_client,:date_rdv, :heure_rdv, :objectif, :mode_rdv)");
     query.bindValue(":id_rdv", id_rdv);
+    query.bindValue(":nom_client", nom_client);
     query.bindValue(":date_rdv", date_rdv);
     query.bindValue(":heure_rdv", heure_rdv);
-    query.bindValue(":mode_rdv", mode_rdv);
     query.bindValue(":objectif", objectif);
-    query.bindValue(":nom_client", nom_client);
+    query.bindValue(":mode_rdv", mode_rdv);
+
+
 
     return query.exec();
 }
@@ -85,14 +87,15 @@ bool RendezVous::ajouter() {
 // Afficher les rendez-vous
 QSqlQueryModel* RendezVous::afficher() {
     QSqlQueryModel *model = new QSqlQueryModel();
-    model->setQuery("SELECT ID_RDV, TO_CHAR(DATE_RDV, 'DD/MM/YYYY') AS DATE_RDV, HEURE_RDV, MODE_RDV, OBJECTIF, NOM_CLIENT FROM RENDEZ_VOUS");
+    model->setQuery("SELECT ID_RDV, NOM_CLIENT, TO_CHAR(DATE_RDV, 'DD/MM/YYYY') AS DATE_RDV, HEURE_RDV, OBJECTIF , MODE_RDV FROM RENDEZ_VOUS");
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID_RDV"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("DATE_RDV"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("HEURE_RDV"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("MODE_RDV"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOM_CLIENT"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("DATE_RDV"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("HEURE_RDV"));
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("OBJECTIF"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("NOM_CLIENT"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("MODE_RDV"));
+
 
     return model;
 }
@@ -121,3 +124,70 @@ bool RendezVous::supprimer(int idRdv) {
 
     return query.exec();
 }
+QSqlQueryModel* RendezVous::recherche(const QString &searchQuery)
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+    QSqlQuery query;
+    QString searchValue = "%" + searchQuery + "%";
+
+    query.prepare("SELECT ID_RDV, NOM_CLIENT, DATE_RDV, HEURE_RDV, MODE_RDV, OBJECTIF "
+                  "FROM RENDEZ_VOUS "
+                  "WHERE TO_CHAR(ID_RDV) LIKE :val "
+                  "OR LOWER(NOM_CLIENT) LIKE LOWER(:val) "
+                  "OR TO_CHAR(DATE_RDV, 'YYYY-MM-DD') LIKE :val "
+                  "OR HEURE_RDV LIKE :val "
+                  "OR LOWER(MODE_RDV) LIKE LOWER(:val) "
+                  "OR LOWER(OBJECTIF) LIKE LOWER(:val)");
+
+    query.bindValue(":val", searchValue);
+
+    if (query.exec())
+    {
+        model->setQuery(query);
+        model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+        model->setHeaderData(1, Qt::Horizontal, QObject::tr("Nom Client"));
+        model->setHeaderData(2, Qt::Horizontal, QObject::tr("Date"));
+        model->setHeaderData(3, Qt::Horizontal, QObject::tr("Heure"));
+        model->setHeaderData(4, Qt::Horizontal, QObject::tr("Mode"));
+        model->setHeaderData(5, Qt::Horizontal, QObject::tr("Objectif"));
+
+        return model;
+    }
+    else
+    {
+        qDebug() << "Erreur de requête RDV :" << query.lastError().text();
+        delete model;
+        return afficher(); // retourne tous les RDV
+    }
+}
+QSqlQueryModel* RendezVous::Trier_RDV(QString critere) {
+    QSqlQueryModel* model = new QSqlQueryModel();
+    QSqlQuery query;
+    QString queryString;
+
+    // Tri selon le critère
+    if (critere == "MODE_RDV") {
+        queryString = "SELECT * FROM RENDEZ_VOUS ORDER BY MODE_RDV ASC";
+    } else if (critere == "DATE_RDV") {
+        queryString = "SELECT * FROM RENDEZ_VOUS ORDER BY DATE_RDV ASC";
+    } else {
+        return afficher();  // Affichage sans tri si critère invalide
+    }
+
+    query.prepare(queryString);
+
+    if (query.exec()) {
+        model->setQuery(query);
+        model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID_RDV"));
+        model->setHeaderData(1, Qt::Horizontal, QObject::tr("DATE_RDV"));
+        model->setHeaderData(2, Qt::Horizontal, QObject::tr("HEURE_RDV"));
+        model->setHeaderData(3, Qt::Horizontal, QObject::tr("MODE_RDV"));
+        model->setHeaderData(4, Qt::Horizontal, QObject::tr("OBJECTIF"));
+        model->setHeaderData(5, Qt::Horizontal, QObject::tr("NOM_CLIENT"));
+        return model;
+    } else {
+        delete model;
+        return nullptr;
+    }
+}
+

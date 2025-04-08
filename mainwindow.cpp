@@ -4,7 +4,15 @@
 #include <QMessageBox>
 #include <QSqlError>
 #include <QRegularExpression>
-
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QPrinter>
+#include <QTextDocument>
+#include <QTextStream>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <QtCharts/QChart>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -42,6 +50,11 @@ void MainWindow::on_addRDV_clicked()
         QMessageBox::warning(this, "Erreur", "L'heure du rendez-vous est obligatoire.");
         return;
     }
+    if (date < QDate::currentDate()) {
+        QMessageBox::warning(this, "Erreur", "La date du rendez-vous doit être aujourd'hui ou ultérieure.");
+        return;
+    }
+
     if (mode.isEmpty()) {
         QMessageBox::warning(this, "Erreur", "Le mode du rendez-vous est obligatoire.");
         return;
@@ -135,8 +148,8 @@ void MainWindow::on_updateRDV_clicked()
     QString objectif = ui->objectifRDV->text().trimmed();
     QString client = ui->clientRDV->text().trimmed();
 
-    if (mode.isEmpty()) {
-        QMessageBox::warning(this, "Erreur", "Veuillez sélectionner un mode de rendez-vous.");
+    if (date < QDate::currentDate()) {
+        QMessageBox::warning(this, "Erreur", "La date du rendez-vous doit être aujourd'hui ou ultérieure.");
         return;
     }
     if (client.length() <3) {
@@ -208,4 +221,176 @@ void MainWindow::on_suppRDV_clicked()
         }
     }
 }
+
+
+
+
+void MainWindow::on_rechercher_textChanged(const QString &text)
+{
+    RendezVous rdv;
+    QSqlQueryModel* model = rdv.recherche(text); // Appel à la fonction recherche
+
+    if (model)
+    {
+        ui->tab_affichage->setModel(model); // Mettre à jour l'affichage
+    }
+}
+
+
+
+
+
+void MainWindow::on_pdf_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, "Exporter en PDF", QString(), "PDF Files (*.pdf)");
+    if (fileName.isEmpty())
+        return;
+
+    if (QFileInfo(fileName).suffix().isEmpty())
+        fileName.append(".pdf");
+
+    QSqlDatabase db = QSqlDatabase::database();
+    if (!db.isOpen()) {
+        QMessageBox::critical(this, "Erreur", "Connexion à la base de données non établie.");
+        return;
+    }
+
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPageSize(QPageSize(QPageSize::A4));
+    printer.setOutputFileName(fileName);
+
+    QTextDocument doc;
+    QString text;
+    QTextStream stream(&text);
+
+    stream << "<h2 style='text-align: center;'>Liste des Rendez-vous</h2>";
+    stream << "<hr><br>";
+    stream << "<table style='width:100%; border-collapse: collapse; font-size: 12px;'>";
+
+    stream << "<tr style='background-color: #f2f2f2;'>";
+    stream << "<th style='border: 1px solid black; padding: 8px;'>ID</th>";
+    stream << "<th style='border: 1px solid black; padding: 8px;'>Date</th>";
+    stream << "<th style='border: 1px solid black; padding: 8px;'>Heure</th>";
+    stream << "<th style='border: 1px solid black; padding: 8px;'>Mode</th>";
+    stream << "<th style='border: 1px solid black; padding: 8px;'>Objectif</th>";
+    stream << "<th style='border: 1px solid black; padding: 8px;'>Client</th>";
+    stream << "</tr>";
+
+    QSqlQuery query(db);
+    query.prepare("SELECT ID_RDV, DATE_RDV, HEURE_RDV, MODE_RDV, OBJECTIF, NOM_CLIENT FROM RENDEZ_VOUS");
+    if (!query.exec()) {
+        QMessageBox::critical(this, "Erreur SQL", query.lastError().text());
+        return;
+    }
+
+    while (query.next()) {
+        stream << "<tr>";
+        stream << "<td style='border: 1px solid black; padding: 8px;'>" << query.value("ID_RDV").toString() << "</td>";
+        stream << "<td style='border: 1px solid black; padding: 8px;'>" << query.value("DATE_RDV").toDate().toString("dd/MM/yyyy") << "</td>";
+        stream << "<td style='border: 1px solid black; padding: 8px;'>" << query.value("HEURE_RDV").toString() << "</td>";
+        stream << "<td style='border: 1px solid black; padding: 8px;'>" << query.value("MODE_RDV").toString() << "</td>";
+        stream << "<td style='border: 1px solid black; padding: 8px;'>" << query.value("OBJECTIF").toString() << "</td>";
+        stream << "<td style='border: 1px solid black; padding: 8px;'>" << query.value("NOM_CLIENT").toString() << "</td>";
+        stream << "</tr>";
+    }
+
+    stream << "</table>";
+    doc.setHtml(text);
+    doc.print(&printer);
+
+    QMessageBox::information(this, "PDF", "PDF généré avec succès.");
+}
+
+
+void MainWindow::on_mode_clicked()
+{
+    QSqlQueryModel* model = rdv.Trier_RDV("MODE_RDV");
+    ui->tab_affichage->setModel(model);
+}
+
+
+void MainWindow::on_date_clicked()
+{
+    QSqlQueryModel* model = rdv.Trier_RDV("DATE_RDV");
+    ui->tab_affichage->setModel(model);
+}
+
+
+void MainWindow::on_statbutton_clicked()
+{
+    QTabWidget *tabWidget = new QTabWidget();
+
+    struct StatInfo {
+        QString title;
+        QString field;
+    };
+
+    QList<StatInfo> stats = {
+        {"Répartition par mode", "MODE_RDV"},
+        {"Répartition par date", "TO_CHAR(DATE_RDV, 'YYYY-MM-DD')"},
+        {"Répartition par objectif", "OBJECTIF"}
+    };
+
+    QStringList colors = {
+        "#ff6f61", "#6b5b95", "#88b04b", "#f7cac9",
+        "#92a8d1", "#955251", "#b565a7", "#009688",
+        "#f4b400", "#607d8b"
+    };
+
+    for (const StatInfo &stat : stats)
+    {
+        QPieSeries *series = new QPieSeries();
+
+        QSqlQuery query;
+        QString queryString = "SELECT " + stat.field + ", COUNT(*) AS count FROM RENDEZ_VOUS GROUP BY " + stat.field;
+        query.prepare(queryString);
+
+        if (query.exec()) {
+            while (query.next()) {
+                QString label = query.value(0).toString();
+                int count = query.value(1).toInt();
+                if (!label.isEmpty()) {
+                    QPieSlice *slice = series->append(label, count);
+                    slice->setLabelVisible(true);
+                    slice->setExploded(true);
+                    slice->setLabel(QString("%1 (%2)").arg(label).arg(count));
+                }
+            }
+        }
+
+        int i = 0;
+        for (QPieSlice *slice : series->slices()) {
+            slice->setColor(QColor(colors[i % colors.size()]));
+            i++;
+        }
+
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+        chart->setTitle(stat.title);
+        chart->setTitleFont(QFont("Segoe UI", 14, QFont::Bold));
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignBottom);
+        chart->legend()->setFont(QFont("Segoe UI", 10));
+
+        QChartView *chartView = new QChartView(chart);
+        chartView->setRenderHint(QPainter::Antialiasing);
+
+        QWidget *tab = new QWidget();
+        QVBoxLayout *layout = new QVBoxLayout(tab);
+        layout->addWidget(chartView);
+        tab->setLayout(layout);
+
+        tabWidget->addTab(tab, stat.title);
+    }
+
+    QDialog *dialog = new QDialog(this);
+    dialog->setWindowTitle("Statistiques des rendez-vous");
+    QVBoxLayout *dialogLayout = new QVBoxLayout(dialog);
+    dialogLayout->addWidget(tabWidget);
+    dialog->setLayout(dialogLayout);
+    dialog->resize(800, 500);
+    dialog->exec();
+}
+
 

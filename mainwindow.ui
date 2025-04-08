@@ -222,7 +222,7 @@ QScrollBar::sub-line:horizontal {
        <rect>
         <x>40</x>
         <y>20</y>
-        <width>391</width>
+        <width>311</width>
         <height>51</height>
        </rect>
       </property>
@@ -264,7 +264,7 @@ border-radius:20px;</string>
          <pixmap resource="ressources.qrc">:/Downloads/search (1).svg</pixmap>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="rechercher">
         <property name="geometry">
          <rect>
           <x>45</x>
@@ -283,46 +283,6 @@ color: #505050;</string>
          <string>  Rechercher...</string>
         </property>
        </widget>
-      </widget>
-      <widget class="QPushButton" name="pushButton_14">
-       <property name="geometry">
-        <rect>
-         <x>300</x>
-         <y>10</y>
-         <width>80</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton#pushButton_14{
-    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(11, 131, 120, 219), stop:1 rgba(85, 98, 112, 226));
-    color: rgba(255, 255, 255, 210);
-    border-radius: 5px;
-    border: none;
-}
-
-QPushButton#pushButton_14:hover {
-    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(150, 123, 111, 219), stop:1 rgba(85, 81, 84, 226));
-}
-
-QPushButton#pushButton_14:pressed {
-    padding-left: 3px;
-    padding-top: 3px;
-    background-color: rgba(150, 123, 111, 255);
-}</string>
-       </property>
-       <property name="text">
-        <string>filtrer</string>
-       </property>
-       <property name="icon">
-        <iconset resource="ressources.qrc">
-         <normaloff>:/Downloads/align-left.svg</normaloff>:/Downloads/align-left.svg</iconset>
-       </property>
       </widget>
      </widget>
      <widget class="QWidget" name="widget_5" native="true">
@@ -375,7 +335,7 @@ QPushButton#pushButton_3:pressed {
          <normaloff>:/Downloads/calendar.svg</normaloff>:/Downloads/calendar.svg</iconset>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="statbutton">
        <property name="geometry">
         <rect>
          <x>135</x>
@@ -391,18 +351,18 @@ QPushButton#pushButton_3:pressed {
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton#pushButton_5 {
+        <string notr="true">QPushButton#statbutton {
     background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(11, 131, 120, 219), stop:1 rgba(85, 98, 112, 226));
     color: rgba(255, 255, 255, 210);
     border-radius: 5px;
     border: none;
 }
 
-QPushButton#pushButton_5:hover {
+QPushButton#statbutton:hover {
     background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(150, 123, 111, 219), stop:1 rgba(85, 81, 84, 226));
 }
 
-QPushButton#pushButton_5:pressed {
+QPushButton#statbutton:pressed {
     padding-left: 3px;
     padding-top: 3px;
     background-color: rgba(150, 123, 111, 255);
@@ -416,7 +376,7 @@ QPushButton#pushButton_5:pressed {
          <normaloff>:/Downloads/pie-chart (1).svg</normaloff>:/Downloads/pie-chart (1).svg</iconset>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_6">
+      <widget class="QPushButton" name="pdf">
        <property name="geometry">
         <rect>
          <x>262</x>
@@ -432,18 +392,18 @@ QPushButton#pushButton_5:pressed {
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton#pushButton_6 {
+        <string notr="true">QPushButton#pdf {
     background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(11, 131, 120, 219), stop:1 rgba(85, 98, 112, 226));
     color: rgba(255, 255, 255, 210);
     border-radius: 5px;
     border: none;
 }
 
-QPushButton#pushButton_6:hover {
+QPushButton#pdf:hover {
     background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(150, 123, 111, 219), stop:1 rgba(85, 81, 84, 226));
 }
 
-QPushButton#pushButton_6:pressed {
+QPushButton#pdf:pressed {
     padding-left: 3px;
     padding-top: 3px;
     background-color: rgba(150, 123, 111, 255);
@@ -503,6 +463,86 @@ padding-bottom:px;
         </rect>
        </property>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="mode">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>30</y>
+        <width>80</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#mode{
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(11, 131, 120, 219), stop:1 rgba(85, 98, 112, 226));
+    color: rgba(255, 255, 255, 210);
+    border-radius: 5px;
+    border: none;
+}
+
+QPushButton#mode:hover {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(150, 123, 111, 219), stop:1 rgba(85, 81, 84, 226));
+}
+
+QPushButton#mode:pressed {
+    padding-left: 3px;
+    padding-top: 3px;
+    background-color: rgba(150, 123, 111, 255);
+}</string>
+      </property>
+      <property name="text">
+       <string>mode</string>
+      </property>
+      <property name="icon">
+       <iconset resource="ressources.qrc">
+        <normaloff>:/Downloads/align-left.svg</normaloff>:/Downloads/align-left.svg</iconset>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="date">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>30</y>
+        <width>80</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#date{
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(11, 131, 120, 219), stop:1 rgba(85, 98, 112, 226));
+    color: rgba(255, 255, 255, 210);
+    border-radius: 5px;
+    border: none;
+}
+
+QPushButton#date:hover {
+    background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(150, 123, 111, 219), stop:1 rgba(85, 81, 84, 226));
+}
+
+QPushButton#date:pressed {
+    padding-left: 3px;
+    padding-top: 3px;
+    background-color: rgba(150, 123, 111, 255);
+}</string>
+      </property>
+      <property name="text">
+       <string>date</string>
+      </property>
+      <property name="icon">
+       <iconset resource="ressources.qrc">
+        <normaloff>:/Downloads/align-left.svg</normaloff>:/Downloads/align-left.svg</iconset>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="widget_7" native="true">
