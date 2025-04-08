@@ -1,4 +1,4 @@
-#include "employe.h"
+#include "projet.h"
 #include <QApplication>
 #include <QMessageBox>
 #include "connection.h"
@@ -8,22 +8,23 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     connection c;
-    bool test=c.createconnect();
-Employe w;
-    if(test)
-    {w.show();
-        QMessageBox::information(nullptr, QObject::tr("database is open"),
-                                 QObject::tr("connection successful.\n"
-                                             "Click Cancel to exit."), QMessageBox::Cancel);
+    bool test = c.createconnect();  // Try to establish a database connection
+    Projet w;  // Create the main window
 
+    if (test) {
+        w.show();  // Show the main window if the connection is successful
+        QMessageBox::information(nullptr, QObject::tr("Database is Open"),
+                                 QObject::tr("Connection successful.\n"
+                                             "Click Cancel to exit."),
+                                 QMessageBox::Cancel);
+    } else {
+        // Show an error message if the connection fails
+        w.show();
+        QMessageBox::critical(nullptr, QObject::tr("Database is not Open"),
+                              QObject::tr("Connection failed.\n"
+                                          "Click Cancel to exit."),
+                              QMessageBox::Cancel);
     }
-    else
-        QMessageBox::critical(nullptr, QObject::tr("database is not open"),
-                              QObject::tr("connection failed.\n"
-                                          "Click Cancel to exit."), QMessageBox::Cancel);
 
-
-
-
-    return a.exec();
+    return a.exec();  // Start the event loop
 }

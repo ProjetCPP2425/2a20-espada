@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QDateEdit>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -50,28 +51,24 @@ public:
     QWidget *widget_4;
     QLabel *label_27;
     QTableView *tableView;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_7;
     QWidget *widget_7;
     QWidget *widget_8;
     QVBoxLayout *verticalLayout;
     QLabel *label_28;
-    QLabel *label_37;
-    QLabel *label_29;
     QLabel *label_30;
     QLabel *label_31;
     QLabel *label_32;
-    QLabel *label_33;
     QLabel *label_36;
     QWidget *widget_9;
     QLineEdit *lineEdit_3;
     QFrame *frame_4;
     QLineEdit *lineEdit_2;
-    QLineEdit *lineEdit_4;
-    QLineEdit *lineEdit_5;
-    QLineEdit *lineEdit_6;
-    QLineEdit *lineEdit_7;
-    QLineEdit *lineEdit_8;
     QLineEdit *lineEdit_9;
     QLineEdit *lineEdit_10;
+    QDateEdit *dateEdit_2;
+    QDateEdit *dateEdit;
     QPushButton *pushButton_14;
     QWidget *widget_10;
     QHBoxLayout *horizontalLayout_2;
@@ -83,12 +80,12 @@ public:
     {
         if (projet->objectName().isEmpty())
             projet->setObjectName("projet");
-        projet->resize(961, 545);
+        projet->resize(1003, 576);
         centralwidget = new QWidget(projet);
         centralwidget->setObjectName("centralwidget");
         widget = new QWidget(centralwidget);
         widget->setObjectName("widget");
-        widget->setGeometry(QRect(0, 0, 961, 501));
+        widget->setGeometry(QRect(0, 0, 1001, 541));
         widget->setStyleSheet(QString::fromUtf8("background-color:#ECF8F6;"));
         widget_2 = new QWidget(widget);
         widget_2->setObjectName("widget_2");
@@ -148,7 +145,8 @@ public:
         lineEdit->setObjectName("lineEdit");
         lineEdit->setGeometry(QRect(45, 11, 241, 22));
         lineEdit->setStyleSheet(QString::fromUtf8("background-color:transparent;\n"
-"border:none;"));
+"border:none;\n"
+"color: rgb(9, 9, 9);"));
         pushButton_4 = new QPushButton(widget_3);
         pushButton_4->setObjectName("pushButton_4");
         pushButton_4->setGeometry(QRect(300, 10, 80, 24));
@@ -187,7 +185,7 @@ public:
 
         widget_4 = new QWidget(widget_6);
         widget_4->setObjectName("widget_4");
-        widget_4->setGeometry(QRect(20, 160, 571, 231));
+        widget_4->setGeometry(QRect(20, 160, 611, 261));
         label_27 = new QLabel(widget_4);
         label_27->setObjectName("label_27");
         label_27->setGeometry(QRect(10, 10, 151, 21));
@@ -198,8 +196,14 @@ public:
         label_27->setStyleSheet(QString::fromUtf8("color:black;"));
         tableView = new QTableView(widget_4);
         tableView->setObjectName("tableView");
-        tableView->setGeometry(QRect(10, 40, 541, 181));
+        tableView->setGeometry(QRect(10, 40, 561, 191));
         tableView->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
+        pushButton_3 = new QPushButton(widget_4);
+        pushButton_3->setObjectName("pushButton_3");
+        pushButton_3->setGeometry(QRect(300, 10, 31, 24));
+        pushButton_7 = new QPushButton(widget_4);
+        pushButton_7->setObjectName("pushButton_7");
+        pushButton_7->setGeometry(QRect(340, 10, 31, 24));
         widget_7 = new QWidget(widget);
         widget_7->setObjectName("widget_7");
         widget_7->setGeometry(QRect(30, 100, 291, 381));
@@ -218,18 +222,6 @@ public:
 
         verticalLayout->addWidget(label_28);
 
-        label_37 = new QLabel(widget_8);
-        label_37->setObjectName("label_37");
-        label_37->setStyleSheet(QString::fromUtf8("color:black;"));
-
-        verticalLayout->addWidget(label_37);
-
-        label_29 = new QLabel(widget_8);
-        label_29->setObjectName("label_29");
-        label_29->setStyleSheet(QString::fromUtf8("color:black;"));
-
-        verticalLayout->addWidget(label_29);
-
         label_30 = new QLabel(widget_8);
         label_30->setObjectName("label_30");
         label_30->setStyleSheet(QString::fromUtf8("color:black;"));
@@ -247,12 +239,6 @@ public:
         label_32->setStyleSheet(QString::fromUtf8("color:black;"));
 
         verticalLayout->addWidget(label_32);
-
-        label_33 = new QLabel(widget_8);
-        label_33->setObjectName("label_33");
-        label_33->setStyleSheet(QString::fromUtf8("color:black;"));
-
-        verticalLayout->addWidget(label_33);
 
         label_36 = new QLabel(widget_8);
         label_36->setObjectName("label_36");
@@ -276,36 +262,27 @@ public:
         frame_4->setFrameShadow(QFrame::Shadow::Raised);
         lineEdit_2 = new QLineEdit(frame_4);
         lineEdit_2->setObjectName("lineEdit_2");
-        lineEdit_2->setGeometry(QRect(10, 9, 113, 24));
-        lineEdit_2->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
-        lineEdit_4 = new QLineEdit(frame_4);
-        lineEdit_4->setObjectName("lineEdit_4");
-        lineEdit_4->setGeometry(QRect(10, 46, 113, 24));
-        lineEdit_4->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
-        lineEdit_5 = new QLineEdit(frame_4);
-        lineEdit_5->setObjectName("lineEdit_5");
-        lineEdit_5->setGeometry(QRect(10, 85, 113, 24));
-        lineEdit_5->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
-        lineEdit_6 = new QLineEdit(frame_4);
-        lineEdit_6->setObjectName("lineEdit_6");
-        lineEdit_6->setGeometry(QRect(10, 120, 113, 24));
-        lineEdit_6->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
-        lineEdit_7 = new QLineEdit(frame_4);
-        lineEdit_7->setObjectName("lineEdit_7");
-        lineEdit_7->setGeometry(QRect(10, 154, 113, 24));
-        lineEdit_7->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
-        lineEdit_8 = new QLineEdit(frame_4);
-        lineEdit_8->setObjectName("lineEdit_8");
-        lineEdit_8->setGeometry(QRect(10, 222, 113, 24));
-        lineEdit_8->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        lineEdit_2->setGeometry(QRect(10, 20, 113, 24));
+        lineEdit_2->setStyleSheet(QString::fromUtf8("border:1px solid black;\n"
+"color: rgb(9, 9, 9);"));
         lineEdit_9 = new QLineEdit(frame_4);
         lineEdit_9->setObjectName("lineEdit_9");
         lineEdit_9->setGeometry(QRect(10, 188, 113, 24));
-        lineEdit_9->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        lineEdit_9->setStyleSheet(QString::fromUtf8("border:1px solid black;\n"
+"color: rgb(9, 9, 9);"));
         lineEdit_10 = new QLineEdit(frame_4);
         lineEdit_10->setObjectName("lineEdit_10");
-        lineEdit_10->setGeometry(QRect(10, 256, 113, 24));
-        lineEdit_10->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        lineEdit_10->setGeometry(QRect(10, 240, 113, 24));
+        lineEdit_10->setStyleSheet(QString::fromUtf8("border:1px solid black;\n"
+"color: rgb(9, 9, 9);"));
+        dateEdit_2 = new QDateEdit(frame_4);
+        dateEdit_2->setObjectName("dateEdit_2");
+        dateEdit_2->setGeometry(QRect(10, 120, 110, 25));
+        dateEdit_2->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
+        dateEdit = new QDateEdit(frame_4);
+        dateEdit->setObjectName("dateEdit");
+        dateEdit->setGeometry(QRect(10, 70, 110, 25));
+        dateEdit->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pushButton_14 = new QPushButton(widget_7);
         pushButton_14->setObjectName("pushButton_14");
         pushButton_14->setGeometry(QRect(150, 340, 101, 31));
@@ -326,7 +303,7 @@ public:
         projet->setCentralWidget(centralwidget);
         menubar = new QMenuBar(projet);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 961, 21));
+        menubar->setGeometry(QRect(0, 0, 1003, 21));
         projet->setMenuBar(menubar);
         statusbar = new QStatusBar(projet);
         statusbar->setObjectName("statusbar");
@@ -349,21 +326,15 @@ public:
         pushButton_5->setText(QCoreApplication::translate("projet", "Statestiques", nullptr));
         pushButton_6->setText(QCoreApplication::translate("projet", "Pdf", nullptr));
         label_27->setText(QCoreApplication::translate("projet", "Projets", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("projet", "\360\237\224\275", nullptr));
+        pushButton_7->setText(QCoreApplication::translate("projet", "\360\237\224\274", nullptr));
         label_28->setText(QCoreApplication::translate("projet", "Nom projet:", nullptr));
-        label_37->setText(QCoreApplication::translate("projet", "Nom:", nullptr));
-        label_29->setText(QCoreApplication::translate("projet", "Nom client :", nullptr));
         label_30->setText(QCoreApplication::translate("projet", "Date-debut :", nullptr));
         label_31->setText(QCoreApplication::translate("projet", "date-fin:", nullptr));
         label_32->setText(QCoreApplication::translate("projet", "statut:", nullptr));
-        label_33->setText(QCoreApplication::translate("projet", "Nom roussouces:", nullptr));
         label_36->setText(QCoreApplication::translate("projet", "Description:", nullptr));
         lineEdit_2->setText(QString());
         lineEdit_2->setPlaceholderText(QCoreApplication::translate("projet", " taper le nom... ", nullptr));
-        lineEdit_4->setPlaceholderText(QCoreApplication::translate("projet", "taper le nom...", nullptr));
-        lineEdit_5->setPlaceholderText(QCoreApplication::translate("projet", "taper le nom...", nullptr));
-        lineEdit_6->setPlaceholderText(QCoreApplication::translate("projet", "../../..", nullptr));
-        lineEdit_7->setPlaceholderText(QCoreApplication::translate("projet", "../../..", nullptr));
-        lineEdit_8->setPlaceholderText(QCoreApplication::translate("projet", "taper les ressources..", nullptr));
         lineEdit_9->setPlaceholderText(QCoreApplication::translate("projet", "taper le statut...", nullptr));
         lineEdit_10->setPlaceholderText(QCoreApplication::translate("projet", "description...", nullptr));
         pushButton_14->setText(QCoreApplication::translate("projet", "Confirmer", nullptr));
