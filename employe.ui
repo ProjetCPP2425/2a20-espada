@@ -135,9 +135,9 @@ font: 11pt &quot;Segoe UI&quot;;</string>
      <widget class="QWidget" name="widget_3" native="true">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>50</x>
         <y>20</y>
-        <width>391</width>
+        <width>671</width>
         <height>51</height>
        </rect>
       </property>
@@ -191,6 +191,7 @@ border-image: url(:/Downloads/search (2).svg);</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color:transparent;
+color: rgb(0, 0, 0);
 border:none;</string>
         </property>
         <property name="placeholderText">
@@ -198,10 +199,62 @@ border:none;</string>
         </property>
        </widget>
       </widget>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="telephoneSortButton">
        <property name="geometry">
         <rect>
-         <x>300</x>
+         <x>320</x>
+         <y>10</y>
+         <width>101</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:black;
+background-color:#B8CBD0</string>
+       </property>
+       <property name="text">
+        <string>Telephone</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/Downloads/align-justify.svg</normaloff>:/Downloads/align-justify.svg</iconset>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="dispoSortButton">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>10</y>
+         <width>121</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color:black;
+background-color:#B8CBD0</string>
+       </property>
+       <property name="text">
+        <string>Disponibilite</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/Downloads/align-justify.svg</normaloff>:/Downloads/align-justify.svg</iconset>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="emailSortButton">
+       <property name="geometry">
+        <rect>
+         <x>560</x>
          <y>10</y>
          <width>80</width>
          <height>24</height>
@@ -217,7 +270,7 @@ border:none;</string>
 background-color:#B8CBD0</string>
        </property>
        <property name="text">
-        <string>filter</string>
+        <string>email</string>
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
@@ -228,7 +281,7 @@ background-color:#B8CBD0</string>
      <widget class="QWidget" name="widget_5" native="true">
       <property name="geometry">
        <rect>
-        <x>40</x>
+        <x>80</x>
         <y>80</y>
         <width>281</width>
         <height>61</height>
@@ -236,7 +289,7 @@ background-color:#B8CBD0</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="statbutton">
          <property name="styleSheet">
           <string notr="true">color:black;
 background-color:#B8CBD0</string>
@@ -251,7 +304,7 @@ background-color:#B8CBD0</string>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_6">
+        <widget class="QPushButton" name="pdfButton">
          <property name="styleSheet">
           <string notr="true">color:black;
 background-color:#B8CBD0</string>

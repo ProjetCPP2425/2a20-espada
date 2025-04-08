@@ -107,3 +107,57 @@ bool em::modifier(int IDEMPLOYE, QString nom, QString prenom, QString email, int
     }
     return true;
 }
+QSqlQueryModel* em::Trier_Employe(QString critere) {
+    QSqlQueryModel* model = new QSqlQueryModel();
+    QString queryString = "SELECT IDEMPLOYE, NOM, PRENOM, EMAIL, TELEPHONE, SPECIALITE, "
+                          "EXPERIENCE, DISPONIBILITE, LOGIN, MDP FROM EMPLOYE ";
+
+    if (critere == "DISPONIBILITE") {
+        queryString += "ORDER BY DISPONIBILITE ASC";
+    }
+    else if (critere == "DISPONIBILITE_DESC") {
+        queryString += "ORDER BY DISPONIBILITE DESC";
+    }
+    else if (critere == "EMAIL") {
+        queryString += "ORDER BY EMAIL ASC";
+    }
+    else if (critere == "EMAIL_DESC") {
+        queryString += "ORDER BY EMAIL DESC";
+    }
+    else if (critere == "TELEPHONE") {
+        queryString += "ORDER BY TELEPHONE ASC";
+    }
+    else if (critere == "TELEPHONE_DESC") {
+        queryString += "ORDER BY TELEPHONE DESC";
+    }
+    else {
+        return afficher();
+    }
+
+    // Use the modern setQuery() approach
+    model->setQuery(queryString);
+
+    if (model->lastError().isValid()) {
+        qDebug() << "Sorting error:" << model->lastError().text();
+        delete model;
+        return nullptr;
+    }
+
+    // Set headers
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("IDEMPLOYE"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOM"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("PRENOM"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("EMAIL"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("TELEPHONE"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("SPECIALITE"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("EXPERIENCE"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("DISPONIBILITE"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("LOGIN"));
+    model->setHeaderData(9, Qt::Horizontal, QObject::tr("MDP"));
+
+    // Add button columns
+    model->insertColumn(10); // Supprimer
+    model->insertColumn(11); // Modifier
+
+    return model;
+}

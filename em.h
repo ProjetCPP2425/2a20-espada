@@ -48,7 +48,7 @@ public:
     QSqlQueryModel * afficher();
     bool supprimer(int);
     bool modifier(int IDEMPLOYE, QString nom, QString prenom, QString email, int telephone, QString specialite, int exp, QString dispo, QString log, QString mdp);
-
+    QSqlQueryModel* Trier_Employe(QString critere);
 
 
 
