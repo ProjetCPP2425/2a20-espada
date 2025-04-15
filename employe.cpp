@@ -1,4 +1,5 @@
 #include "employe.h"
+#include "loginwindow.h"//.h"
 #include "ui_employe.h"
 #include "em.h"
 #include "buttondelegate.h"
@@ -39,6 +40,8 @@ Employe::Employe(QWidget *parent)
 Employe::~Employe()
 {
     delete ui;
+    LoginWindow *loginWindow = new LoginWindow();
+    loginWindow->show();
 }
 
 // Validation function for name (only alphabets)
@@ -520,4 +523,13 @@ void Employe::on_statbutton_clicked()
     dialog->setLayout(dialogLayout);
     dialog->resize(900, 600);
     dialog->exec();
+}
+void Employe::on_logoutButton_clicked()
+{
+    // Close the current window
+    this->close();
+
+    // Show the login window again
+    LoginWindow *loginWindow = new LoginWindow();
+    loginWindow->show();
 }

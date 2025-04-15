@@ -38,6 +38,8 @@ private slots: // Ajout de "slots:"
     void on_pdfButton_clicked();
     void on_statbutton_clicked();
 
+    void on_logoutButton_clicked();  // Add this line
+
 private:
     Ui::Employe *ui;
     em Etmp;

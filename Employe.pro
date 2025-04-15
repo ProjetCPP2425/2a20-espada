@@ -1,4 +1,4 @@
-QT       += core gui charts sql printsupport widgets
+QT       += core gui charts sql printsupport widgets network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,6 +13,7 @@ SOURCES += \
     connection.cpp \
     editemployeedialog.cpp \
     em.cpp \
+    loginwindow.cpp \
     main.cpp \
     employe.cpp
 
@@ -21,11 +22,13 @@ HEADERS += \
     connection.h \
     editemployeedialog.h \
     em.h \
-    employe.h
+    employe.h \
+    loginwindow.h
 
 FORMS += \
     editemployeedialog.ui \
-    employe.ui
+    employe.ui \
+    loginwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -38,3 +41,6 @@ RESOURCES += \
     resource.qrc \
     resource.qrc \
     rsc.qrc
+
+DISTFILES += \
+    sendmail.py

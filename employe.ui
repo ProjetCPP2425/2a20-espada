@@ -81,7 +81,7 @@
        <enum>QFrame::Shadow::Raised</enum>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="logoutButton">
       <property name="geometry">
        <rect>
         <x>1040</x>
