@@ -12,12 +12,28 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QTextEdit>          // For QTextEdit widget
+#include <QJsonObject>        // For QJsonObject
+#include <QJsonArray>         // For QJsonArray
+#include <QJsonDocument>      // For QJsonDocument
+#include <QNetworkAccessManager>  // For QNetworkAccessManager
+#include <QNetworkRequest>    // For QNetworkRequest
+#include <QNetworkReply>
+#include <QTimer>
+#include <QScopedPointer>
 
 
+const QString HF_API_TOKEN = "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";
 
 Projet::Projet(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::projet)
+    , ui(new Ui::projet),
+    m_networkManager(new QNetworkAccessManager(this))
 {
     ui->setupUi(this);
     ui->tableView->setModel(pro.afficher());
@@ -39,6 +55,10 @@ Projet::Projet(QWidget *parent)
     connect(ui->pushButton_5, &QPushButton::clicked, this, &Projet::on_pushButton_statistiques_clicked);
     connect(ui->pushButton_3, &QPushButton::clicked, this, &Projet::on_pushButton_up_clicked);
     connect(ui->pushButton_7, &QPushButton::clicked, this, &Projet::on_pushButton_down_clicked);
+    connect(ui->pushButton_8, &QPushButton::clicked, this, &Projet::openChatbot);
+    if (!m_networkManager) {
+        qCritical() << "Failed to initialize network manager";
+    }
 
 
 
@@ -49,6 +69,9 @@ Projet::Projet(QWidget *parent)
 Projet::~Projet()
 {
     delete ui;
+    if (!m_chatbotDialog.isNull()) {
+        m_chatbotDialog->deleteLater();
+    }
 }
 
 void Projet::on_pushButton_ajouter_clicked() {
@@ -379,4 +402,133 @@ void Projet::on_pushButton_down_clicked()
 {
     ui->tableView->setModel(pro.afficherSortedDesc());
     ui->tableView->resizeColumnsToContents();
+}
+void Projet::openChatbot()
+{
+    if (m_chatbotDialog.isNull()) {
+        initializeChatbotUI();
+    }
+    m_chatbotDialog->show();
+    m_chatbotDialog->raise();
+    m_chatbotDialog->activateWindow();
+}
+
+// Initialize chatbot UI components
+void Projet::initializeChatbotUI()
+{
+    m_chatbotDialog = new QDialog(this);
+    m_chatbotDialog->setWindowTitle("AI Assistant");
+    m_chatbotDialog->setMinimumSize(400, 500);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout(m_chatbotDialog);
+
+    // Chat display area
+    m_chatDisplay = new QTextEdit(m_chatbotDialog);
+    m_chatDisplay->setReadOnly(true);
+    mainLayout->addWidget(m_chatDisplay);
+
+    // Input area
+    QHBoxLayout *inputLayout = new QHBoxLayout();
+    m_messageInput = new QLineEdit(m_chatbotDialog);
+    QPushButton *sendButton = new QPushButton("Send", m_chatbotDialog);
+    inputLayout->addWidget(m_messageInput);
+    inputLayout->addWidget(sendButton);
+    mainLayout->addLayout(inputLayout);
+
+    // Connections
+    connect(sendButton, &QPushButton::clicked, this, &Projet::handleSendMessage);
+    connect(m_messageInput, &QLineEdit::returnPressed, this, &Projet::handleSendMessage);
+
+    // Welcome message
+    showChatMessage("Assistant", "Hello! How can I help you today?");
+}
+
+// Handle send button click
+void Projet::handleSendMessage()
+{
+    if (m_messageInput.isNull()) return;
+
+    QString message = m_messageInput->text().trimmed();
+    if (message.isEmpty()) return;
+
+    showChatMessage("You", message);
+    m_messageInput->clear();
+
+    sendToChatbotAPI(message);
+}
+
+// Send message to chatbot API
+void Projet::sendToChatbotAPI(const QString &message)
+{
+    if (!m_networkManager) {
+        showError("Network service unavailable");
+        return;
+    }
+
+    const QString apiKey = "Bearer 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";
+    if (apiKey.contains("your_actual_api_key")) {
+        showError("API key not configured");
+        return;
+    }
+
+    QUrl apiUrl("https://api-inference.huggingface.co/models/facebook/blenderbot-3B");
+    QNetworkRequest request(apiUrl);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setRawHeader("Authorization", apiKey.toUtf8());
+
+    QJsonObject payload;
+    payload["inputs"] = message;
+    payload["parameters"] = QJsonObject{
+        {"max_length", 150},
+        {"temperature", 0.7},
+        {"wait_for_model", true}
+    };
+
+    QNetworkReply *reply = m_networkManager->post(request, QJsonDocument(payload).toJson());
+
+    // Set timeout
+    QTimer::singleShot(30000, reply, &QNetworkReply::abort);
+
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+        this->handleNetworkReply(reply);
+    });
+}
+
+// Handle network response
+void Projet::handleNetworkReply(QNetworkReply *reply)
+{
+    if (!reply) return;
+
+    if (reply->error() == QNetworkReply::NoError) {
+        QByteArray response = reply->readAll();
+        QJsonDocument json = QJsonDocument::fromJson(response);
+
+        if (!json.isNull() && json.isArray()) {
+            QString replyText = json.array().first().toString();
+            showChatMessage("Assistant", replyText);
+        } else {
+            showError("Invalid response format");
+        }
+    } else {
+        showError(QString("Network error: %1").arg(reply->errorString()));
+    }
+
+    reply->deleteLater();
+}
+
+// Display message in chat
+void Projet::showChatMessage(const QString &sender, const QString &message)
+{
+    if (!m_chatDisplay.isNull()) {
+        m_chatDisplay->append(QString("<b>%1:</b> %2").arg(sender, message));
+    }
+}
+
+// Display error message
+void Projet::showError(const QString &error)
+{
+    qDebug() << "Error:" << error;
+    if (!m_chatDisplay.isNull()) {
+        m_chatDisplay->append(QString("<font color='red'>Error: %1</font>").arg(error));
+    }
 }

@@ -1,4 +1,4 @@
-QT       += core gui sql pdf charts
+QT       += core gui sql pdf charts network printsupport core
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

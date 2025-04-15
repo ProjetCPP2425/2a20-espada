@@ -2,9 +2,12 @@
 #include <QApplication>
 #include <QMessageBox>
 #include "connection.h"
+#include <QSslSocket>
 
 int main(int argc, char *argv[])
 {
+    qDebug() << "SSL supported:" << QSslSocket::supportsSsl();
+    qDebug() << "SSL version:" << QSslSocket::sslLibraryVersionString();
     QApplication a(argc, argv);
 
     connection c;

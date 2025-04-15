@@ -1,0 +1,10 @@
+release/buttondelegate.o
+release/chatbot.o
+release/chatbot.o
+release/connection.o
+release/main.o
+release/projet.o
+release/projets.o
+release/moc_buttondelegate.o
+release/moc_chatbot.o
+release/moc_projet.o

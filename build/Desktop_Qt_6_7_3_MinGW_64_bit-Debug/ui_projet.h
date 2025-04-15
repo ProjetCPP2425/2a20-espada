@@ -48,11 +48,13 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton_5;
     QPushButton *pushButton_6;
+    QPushButton *pushButton_9;
     QWidget *widget_4;
     QLabel *label_27;
     QTableView *tableView;
     QPushButton *pushButton_3;
     QPushButton *pushButton_7;
+    QPushButton *pushButton_8;
     QWidget *widget_7;
     QWidget *widget_8;
     QVBoxLayout *verticalLayout;
@@ -160,7 +162,7 @@ public:
         pushButton_4->setIcon(icon2);
         widget_5 = new QWidget(widget_6);
         widget_5->setObjectName("widget_5");
-        widget_5->setGeometry(QRect(40, 80, 281, 51));
+        widget_5->setGeometry(QRect(40, 80, 541, 51));
         horizontalLayout = new QHBoxLayout(widget_5);
         horizontalLayout->setObjectName("horizontalLayout");
         pushButton_5 = new QPushButton(widget_5);
@@ -183,6 +185,14 @@ public:
 
         horizontalLayout->addWidget(pushButton_6);
 
+        pushButton_9 = new QPushButton(widget_5);
+        pushButton_9->setObjectName("pushButton_9");
+        pushButton_9->setStyleSheet(QString::fromUtf8("color:black;\n"
+"background-color:#B8CBD0"));
+        pushButton_9->setIcon(icon4);
+
+        horizontalLayout->addWidget(pushButton_9);
+
         widget_4 = new QWidget(widget_6);
         widget_4->setObjectName("widget_4");
         widget_4->setGeometry(QRect(20, 160, 611, 261));
@@ -204,6 +214,11 @@ public:
         pushButton_7 = new QPushButton(widget_4);
         pushButton_7->setObjectName("pushButton_7");
         pushButton_7->setGeometry(QRect(340, 10, 31, 24));
+        pushButton_8 = new QPushButton(widget_4);
+        pushButton_8->setObjectName("pushButton_8");
+        pushButton_8->setGeometry(QRect(480, 10, 80, 24));
+        pushButton_8->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
+"background-color: rgb(182, 182, 182);"));
         widget_7 = new QWidget(widget);
         widget_7->setObjectName("widget_7");
         widget_7->setGeometry(QRect(30, 100, 291, 381));
@@ -325,9 +340,11 @@ public:
         pushButton_4->setText(QCoreApplication::translate("projet", "filter", nullptr));
         pushButton_5->setText(QCoreApplication::translate("projet", "Statestiques", nullptr));
         pushButton_6->setText(QCoreApplication::translate("projet", "Pdf", nullptr));
+        pushButton_9->setText(QCoreApplication::translate("projet", "Archieve", nullptr));
         label_27->setText(QCoreApplication::translate("projet", "Projets", nullptr));
         pushButton_3->setText(QCoreApplication::translate("projet", "\360\237\224\275", nullptr));
         pushButton_7->setText(QCoreApplication::translate("projet", "\360\237\224\274", nullptr));
+        pushButton_8->setText(QCoreApplication::translate("projet", "ChatBot", nullptr));
         label_28->setText(QCoreApplication::translate("projet", "Nom projet:", nullptr));
         label_30->setText(QCoreApplication::translate("projet", "Date-debut :", nullptr));
         label_31->setText(QCoreApplication::translate("projet", "date-fin:", nullptr));

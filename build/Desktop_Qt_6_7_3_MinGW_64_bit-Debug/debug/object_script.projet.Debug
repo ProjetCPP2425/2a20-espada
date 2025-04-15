@@ -1,0 +1,10 @@
+debug/buttondelegate.o
+debug/chatbot.o
+debug/chatbot.o
+debug/connection.o
+debug/main.o
+debug/projet.o
+debug/projets.o
+debug/moc_buttondelegate.o
+debug/moc_chatbot.o
+debug/moc_projet.o
