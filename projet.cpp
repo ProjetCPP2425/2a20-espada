@@ -440,7 +440,7 @@ void Projet::initializeChatbotUI()
     connect(m_messageInput, &QLineEdit::returnPressed, this, &Projet::handleSendMessage);
 
     // Welcome message
-    showChatMessage("Assistant", "Hello! How can I help you today?");
+    showChatMessage("Assistante", "Comment puis-je t’aider aujourd’hui ?");
 }
 
 // Handle send button click
