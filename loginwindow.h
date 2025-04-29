@@ -67,7 +67,22 @@ private:
     QString getUsernameFromEmail(const QString &email);
     void sendSmtpCommand(const QString &command);
     void sendPasswordResetEmail(const QString &email, const QString &username, const QString &tempPassword);
+    enum SmtpState {
+        Disconnected,
+        Connected,
+        EhloSent,
+        AuthSent,
+        UserSent,
+        PassSent,
+        Authenticated,
+        MailFromSent,
+        RcptToSent,
+        DataSent,
+        SendingData,
+        QuitSent
+    };
 
+    SmtpState smtpState;
 };
 
 #endif // LOGINWINDOW_H

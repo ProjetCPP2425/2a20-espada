@@ -139,14 +139,18 @@ void LoginWindow::sendPasswordResetEmail(const QString &email, const QString &us
                     "From: \"Password Reset\" <%1>\r\n"
                     "To: <%2>\r\n"
                     "Subject: Password Reset\r\n"
+                    "MIME-Version: 1.0\r\n"
+                    "Content-Type: text/plain; charset=utf-8\r\n"
                     "\r\n"
                     "Dear %3,\r\n\n"
                     "Your temporary password is: %4\r\n\n"
                     "Please login and change it immediately.\r\n\n"
-                    "This is an automated message.\r\n"
-                    ".\r\n").arg(account.fromEmail, email, username, tempPassword);
+                    "This is an automated message.\r\n").arg(account.fromEmail, email, username, tempPassword);
 
     qDebug() << "Connecting to SMTP server:" << account.host << ":" << account.port;
+
+    // Configure SSL
+    smtpSocket->setProtocol(QSsl::TlsV1_2OrLater);
     smtpSocket->connectToHostEncrypted(account.host, account.port);
 
     if (!smtpSocket->waitForConnected(10000)) {
@@ -154,6 +158,8 @@ void LoginWindow::sendPasswordResetEmail(const QString &email, const QString &us
                               QString("Failed to connect to SMTP server: %1").arg(smtpSocket->errorString()));
         return;
     }
+
+    smtpState = Connected;
 }
 
 void LoginWindow::smtpConnected()
@@ -166,7 +172,7 @@ void LoginWindow::smtpReadyRead()
     QString response;
     while (smtpSocket->canReadLine()) {
         response = smtpSocket->readLine();
-        qDebug() << "SMTP:" << response.trimmed();
+        qDebug() << "SMTP <<" << response.trimmed();
 
         if (response.startsWith("5")) {
             QMessageBox::critical(this, "SMTP Error",
@@ -175,58 +181,82 @@ void LoginWindow::smtpReadyRead()
             return;
         }
 
-        if (response.startsWith("220")) {
-            sendSmtpCommand("EHLO client");
-        }
-        else if (response.startsWith("250")) {
-            if (response.contains("EHLO")) {
+        SmtpAccount account = getSmtpAccountForEmail(emailRecipient);
+
+        switch(smtpState) {
+        case Connected:
+            if (response.startsWith("220")) {
+                sendSmtpCommand("EHLO client");
+                smtpState = EhloSent;
+            }
+            break;
+
+        case EhloSent:
+            if (response.startsWith("250")) {
                 sendSmtpCommand("AUTH LOGIN");
+                smtpState = AuthSent;
             }
-            else if (lastCommand == "AUTH LOGIN") {
-                SmtpAccount account = getSmtpAccountForEmail(emailRecipient);
+            break;
+
+        case AuthSent:
+            if (response.startsWith("334")) {
                 sendSmtpCommand(QString(account.user).toUtf8().toBase64());
+                smtpState = UserSent;
             }
-            else if (lastCommand == getSmtpAccountForEmail(emailRecipient).user.toUtf8().toBase64()) {
-                SmtpAccount account = getSmtpAccountForEmail(emailRecipient);
+            break;
+
+        case UserSent:
+            if (response.startsWith("334")) {
                 sendSmtpCommand(QString(account.password).toUtf8().toBase64());
+                smtpState = PassSent;
             }
-            else if (lastCommand == getSmtpAccountForEmail(emailRecipient).password.toUtf8().toBase64()) {
-                SmtpAccount account = getSmtpAccountForEmail(emailRecipient);
+            break;
+
+        case PassSent:
+            if (response.startsWith("235")) {
                 sendSmtpCommand(QString("MAIL FROM:<%1>").arg(account.fromEmail));
+                smtpState = MailFromSent;
             }
-            else if (lastCommand.startsWith("MAIL FROM")) {
+            break;
+
+        case MailFromSent:
+            if (response.startsWith("250")) {
                 sendSmtpCommand(QString("RCPT TO:<%1>").arg(emailRecipient));
+                smtpState = RcptToSent;
             }
-            else if (lastCommand.startsWith("RCPT TO")) {
+            break;
+
+        case RcptToSent:
+            if (response.startsWith("250")) {
                 sendSmtpCommand("DATA");
+                smtpState = DataSent;
             }
-            else if (lastCommand == "DATA") {
+            break;
+
+        case DataSent:
+            if (response.startsWith("354")) {
                 sendSmtpCommand(emailData);
+                smtpState = SendingData;
             }
-            else if (lastCommand == emailData) {
+            break;
+
+        case SendingData:
+            if (response.startsWith("250")) {
                 sendSmtpCommand("QUIT");
+                smtpState = QuitSent;
             }
-        }
-        else if (response.startsWith("334")) {
-            if (lastCommand == "AUTH LOGIN") {
-                SmtpAccount account = getSmtpAccountForEmail(emailRecipient);
-                sendSmtpCommand(QString(account.user).toUtf8().toBase64());
+            break;
+
+        case QuitSent:
+            if (response.startsWith("221")) {
+                QMessageBox::information(this, "Success",
+                                         "Password reset email sent to " + emailRecipient);
             }
-            else {
-                SmtpAccount account = getSmtpAccountForEmail(emailRecipient);
-                sendSmtpCommand(QString(account.password).toUtf8().toBase64());
-            }
-        }
-        else if (response.startsWith("235")) {
-            SmtpAccount account = getSmtpAccountForEmail(emailRecipient);
-            sendSmtpCommand(QString("MAIL FROM:<%1>").arg(account.fromEmail));
-        }
-        else if (response.startsWith("354")) {
-            sendSmtpCommand(emailData);
-        }
-        else if (response.startsWith("221")) {
-            QMessageBox::information(this, "Success",
-                                     "Password reset email sent to " + emailRecipient);
+            smtpSocket->disconnectFromHost();
+            break;
+
+        default:
+            break;
         }
     }
 }
