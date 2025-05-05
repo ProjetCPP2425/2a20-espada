@@ -5,7 +5,7 @@
 #include <QSqlQuery>
 #include <QString>
 #include <QDate>
-
+#include <QCalendarWidget>
 class RendezVous
 {
 public:
@@ -29,18 +29,20 @@ public:
     void set_nom_client(QString);
 
     // CRUD
-    bool ajouter();
-    QSqlQueryModel* afficher();
-    bool modifier(int);
-    bool supprimer(int);
+    bool ajouter_RDV();
+    QSqlQueryModel* afficher_RDV();
+    bool modifier_RDV(int);
+    bool supprimer_RDV(int);
     // metiers simples
-    QSqlQueryModel* recherche(const QString &searchQuery);
+    QSqlQueryModel* recherche_RDV(const QString &searchQuery);
     QSqlQueryModel* Trier_RDV(QString critere);
+    QSqlQueryModel* Select_by_date_r_RDV(QDate date);
 
-
-
+ QCalendarWidget* getAllRDV_RDV(QCalendarWidget* calendar);
+    void on_calandar_rdv_clicked(const QDate &date);
+ int nombre_RDV();
 private:
-    int id_rdv;
+    int id_rdv,fmt;
     QDate date_rdv;
     QString heure_rdv, mode_rdv, objectif, nom_client,text;
 };

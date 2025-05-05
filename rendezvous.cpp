@@ -1,6 +1,7 @@
 #include "rendezvous.h"
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QTextCharFormat>
 
 // Constructeur par défaut
 RendezVous::RendezVous() {}
@@ -68,7 +69,7 @@ void RendezVous::set_nom_client(QString nomClient) {
 // CRUD Operations
 
 // Ajouter un rendez-vous
-bool RendezVous::ajouter() {
+bool RendezVous::ajouter_RDV() {
     QSqlQuery query;
     query.prepare("INSERT INTO RENDEZ_VOUS (NOM_CLIENT, DATE_RDV, HEURE_RDV,OBJECTIF, MODE_RDV) "
                   "VALUES ( :nom_client,:date_rdv, :heure_rdv, :objectif, :mode_rdv)");
@@ -85,7 +86,7 @@ bool RendezVous::ajouter() {
 }
 
 // Afficher les rendez-vous
-QSqlQueryModel* RendezVous::afficher() {
+QSqlQueryModel* RendezVous::afficher_RDV() {
     QSqlQueryModel *model = new QSqlQueryModel();
     model->setQuery("SELECT ID_RDV, NOM_CLIENT, TO_CHAR(DATE_RDV, 'DD/MM/YYYY') AS DATE_RDV, HEURE_RDV, OBJECTIF , MODE_RDV FROM RENDEZ_VOUS");
 
@@ -101,7 +102,7 @@ QSqlQueryModel* RendezVous::afficher() {
 }
 
 // Modifier un rendez-vous
-bool RendezVous::modifier(int idRdv) {
+bool RendezVous::modifier_RDV(int idRdv) {
     QSqlQuery query;
     query.prepare("UPDATE RENDEZ_VOUS SET DATE_RDV=:date_rdv, HEURE_RDV=:heure_rdv, MODE_RDV=:mode_rdv, "
                   "OBJECTIF=:objectif, NOM_CLIENT=:nom_client WHERE ID_RDV=:id_rdv");
@@ -117,14 +118,14 @@ bool RendezVous::modifier(int idRdv) {
 }
 
 // Supprimer un rendez-vous
-bool RendezVous::supprimer(int idRdv) {
+bool RendezVous::supprimer_RDV(int idRdv) {
     QSqlQuery query;
     query.prepare("DELETE FROM RENDEZ_VOUS WHERE ID_RDV=:id_rdv");
     query.bindValue(":id_rdv", idRdv);
 
     return query.exec();
 }
-QSqlQueryModel* RendezVous::recherche(const QString &searchQuery)
+QSqlQueryModel* RendezVous::recherche_RDV(const QString &searchQuery)
 {
     QSqlQueryModel* model = new QSqlQueryModel();
     QSqlQuery query;
@@ -157,7 +158,7 @@ QSqlQueryModel* RendezVous::recherche(const QString &searchQuery)
     {
         qDebug() << "Erreur de requête RDV :" << query.lastError().text();
         delete model;
-        return afficher(); // retourne tous les RDV
+        return afficher_RDV(); // retourne tous les RDV
     }
 }
 QSqlQueryModel* RendezVous::Trier_RDV(QString critere) {
@@ -171,7 +172,7 @@ QSqlQueryModel* RendezVous::Trier_RDV(QString critere) {
     } else if (critere == "DATE_RDV") {
         queryString = "SELECT * FROM RENDEZ_VOUS ORDER BY DATE_RDV ASC";
     } else {
-        return afficher();  // Affichage sans tri si critère invalide
+        return afficher_RDV();  // Affichage sans tri si critère invalide
     }
 
     query.prepare(queryString);
@@ -191,3 +192,72 @@ QSqlQueryModel* RendezVous::Trier_RDV(QString critere) {
     }
 }
 
+QSqlQueryModel* RendezVous::Select_by_date_r_RDV(QDate date)
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+
+    QString dateStr = date.toString("yyyy-MM-dd");
+
+    QString queryStr = "SELECT ID_RDV, DATE_RDV, HEURE_RDV, MODE_RDV, OBJECTIF, NOM_CLIENT "
+                       "FROM RENDEZ_VOUS "
+                       "WHERE DATE_RDV = TO_DATE('" + dateStr + "', 'YYYY-MM-DD') "
+                                   "ORDER BY HEURE_RDV";
+
+    QSqlQuery query;
+    query.prepare(queryStr);
+    query.exec();
+    model->setQuery(std::move(query));
+
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Date"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Heure"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Mode"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Objectif"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("Nom Client"));
+
+    return model;
+}
+
+
+
+
+QCalendarWidget* RendezVous::getAllRDV_RDV(QCalendarWidget* qcalendarwidget)
+{
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(ID_RDV) AS count, DATE_RDV "
+                  "FROM RENDEZ_VOUS "
+                  "GROUP BY DATE_RDV");
+
+    if (!query.exec()) {
+        qWarning() << "Erreur SQL : " << query.lastError().text();
+        return qcalendarwidget;
+    }
+
+    while (query.next()) {
+        int count = query.value(0).toInt();
+        QDate date = query.value(1).toDate();
+        QTextCharFormat fmt;
+
+        if (count >= 5) {
+            fmt.setBackground(Qt::red);
+        } else if (count >= 2) {
+            fmt.setBackground(Qt::yellow);
+        } else {
+            fmt.setBackground(Qt::green);
+        }
+
+        qcalendarwidget->setDateTextFormat(date, fmt);
+    }
+
+    return qcalendarwidget;
+}
+
+
+int RendezVous::nombre_RDV()
+{
+    QSqlQuery query("SELECT COUNT(*) FROM RENDEZ_VOUS");
+    if (query.next()) {
+        return query.value(0).toInt();
+    }
+    return 0;
+}
