@@ -1,33 +1,31 @@
-#include "projet.h"
+#include "loginwindow.h"
+#include "connection.h"
 #include <QApplication>
 #include <QMessageBox>
-#include "connection.h"
-#include <QSslSocket>
 
 int main(int argc, char *argv[])
 {
-    qDebug() << "SSL supported:" << QSslSocket::supportsSsl();
-    qDebug() << "SSL version:" << QSslSocket::sslLibraryVersionString();
     QApplication a(argc, argv);
 
-    connection c;
-    bool test = c.createconnect();  // Try to establish a database connection
-    Projet w;  // Create the main window
+    // Set organization and application name for settings
+    QCoreApplication::setOrganizationName("YourCompany");
+    QCoreApplication::setApplicationName("EmployeeSystem");
 
-    if (test) {
-        w.show();  // Show the main window if the connection is successful
-        QMessageBox::information(nullptr, QObject::tr("Database is Open"),
-                                 QObject::tr("Connection successful.\n"
-                                             "Click Cancel to exit."),
-                                 QMessageBox::Cancel);
-    } else {
-        // Show an error message if the connection fails
-        w.show();
-        QMessageBox::critical(nullptr, QObject::tr("Database is not Open"),
-                              QObject::tr("Connection failed.\n"
-                                          "Click Cancel to exit."),
+    // Initialize database connection
+    Connection c;
+    if(!c.createconnect()) {
+        QMessageBox::critical(nullptr, "Database Error",
+                              "Failed to connect to database.\nClick Cancel to exit.",
                               QMessageBox::Cancel);
+        return -1;
     }
 
-    return a.exec();  // Start the event loop
+    qDebug() << "Application starting...";
+
+    // Create and show login window
+    LoginWindow loginWindow;
+    loginWindow.show();
+
+    qDebug() << "Login window shown, entering event loop...";
+    return a.exec();
 }

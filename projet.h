@@ -11,6 +11,7 @@
 #include <QPointer>
 #include "projets.h"
 #include "buttondelegate.h"
+#include "arduino.h"
 
 namespace Ui {
 class projet;
@@ -58,6 +59,9 @@ private:
     void showChatMessage(const QString &sender, const QString &message);
     void initializeChatbotUI();
     void sendToChatbotAPI(const QString &message);
+
+    Arduino *arduino;
+    void setupArduinoConnection();
 
 };
 

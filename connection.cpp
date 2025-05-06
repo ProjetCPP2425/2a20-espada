@@ -1,8 +1,11 @@
 #include "connection.h"
 
-connection::connection() {}
+Connection::Connection()
+{
 
-bool connection::createconnect()
+}
+
+bool Connection::createconnect()
 {bool test=false;
     QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
     db.setDatabaseName("Source_Projet2A");//inserer le nom de la source de données
@@ -12,11 +15,10 @@ bool connection::createconnect()
     if (db.open())
         test=true;
 
-    qDebug() << "Database opened successfully.";
-    qDebug() << "Connection name:" << db.connectionName();
-    qDebug() << "Database name:" << db.databaseName();
+
 
 
 
     return  test;
 }
+
