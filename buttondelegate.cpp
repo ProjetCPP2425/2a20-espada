@@ -1,4 +1,3 @@
-
 #include "buttondelegate.h"
 #include <QPushButton>
 #include <QApplication>
@@ -12,13 +11,13 @@ ButtonDelegate::ButtonDelegate(QObject *parent) : QStyledItemDelegate(parent)
 
 void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if (index.column() == 7 || index.column() == 8) {
+    if (index.column() == 6 || index.column() == 7) {  // Updated column numbers
         QStyleOptionButton buttonOption;
-        buttonOption.rect = option.rect.adjusted(5, 5, -5, -5); // Adjust button size
+        buttonOption.rect = option.rect.adjusted(5, 5, -5, -5);
 
-        if (index.column() == 7) { // Column 10: Supprimer button
+        if (index.column() == 6) { // Column 6: Supprimer button
             buttonOption.text = "Supprimer";
-        } else if (index.column() == 8) { // Column 11: Modifier button
+        } else if (index.column() == 7) { // Column 7: Modifier button
             buttonOption.text = "Modifier";
         }
 
@@ -31,10 +30,10 @@ void ButtonDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option
 bool ButtonDelegate::editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index)
 {
     if (event->type() == QEvent::MouseButtonPress) {
-        if (index.column() == 7) { // Supprimer button clicked
+        if (index.column() == 6) { // Supprimer button clicked
             emit deleteButtonClicked(index);
             return true;
-        } else if (index.column() == 8) { // Modifier button clicked
+        } else if (index.column() == 7) { // Modifier button clicked
             emit editButtonClicked(index);
             return true;
         }
