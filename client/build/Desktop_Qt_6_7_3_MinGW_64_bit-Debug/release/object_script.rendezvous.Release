@@ -1,0 +1,14 @@
+release/Arduino_RDV.o
+release/connection.o
+release/main.o
+release/mainwindow.o
+release/rendezvous.o
+release/loginwindow.o
+release/arduino_employe.o
+release/smssender.o
+release/arduino.o
+release/qrc_ressources.o
+release/moc_mainwindow.o
+release/moc_loginwindow.o
+release/moc_smssender.o
+release/moc_arduino.o
