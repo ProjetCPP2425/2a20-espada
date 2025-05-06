@@ -41,7 +41,7 @@ public:
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
     QPushButton *btnRdvJour;
-    QGroupBox *groupBox;
+    QGroupBox *rdvbox;
     QWidget *widget_14;
     QWidget *widget_15;
     QVBoxLayout *verticalLayout_2;
@@ -81,6 +81,56 @@ public:
     QLabel *label_36;
     QLabel *label_4;
     QPushButton *pushButton_10;
+    QPushButton *pushButton_11;
+    QPushButton *pushButton_12;
+    QPushButton *pushButton_13;
+    QPushButton *pushButton_14;
+    QPushButton *pushButton_15;
+    QGroupBox *empbox;
+    QWidget *widget;
+    QWidget *widget_6;
+    QWidget *widget_3;
+    QFrame *frame_2;
+    QLabel *label_2;
+    QLineEdit *lineEditEMP;
+    QPushButton *telephoneSortButton;
+    QPushButton *dispoSortButton;
+    QPushButton *emailSortButton;
+    QWidget *widget_5;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *statbuttonEMP;
+    QPushButton *pdfButtonEMP;
+    QWidget *widget_4;
+    QLabel *label_27;
+    QTableView *tableViewEMP;
+    QWidget *widget_7;
+    QWidget *widget_8;
+    QVBoxLayout *verticalLayout;
+    QLabel *label_28;
+    QLabel *label_29;
+    QLabel *label_30;
+    QLabel *label_31;
+    QLabel *label_32;
+    QLabel *label_33;
+    QLabel *label_48;
+    QLabel *label_49;
+    QLabel *label_50;
+    QWidget *widget_9;
+    QLineEdit *lineEdit_3;
+    QFrame *frame_4;
+    QLineEdit *lineEdit_nomEMP;
+    QLineEdit *lineEdit_prenomEMP;
+    QLineEdit *lineEdit_emailEMP;
+    QLineEdit *lineEdit_telephoneEMP;
+    QLineEdit *lineEdit_experienceEMP;
+    QLineEdit *lineEdit_loginEMP;
+    QLineEdit *lineEdit_mdpEMP;
+    QComboBox *specialiteEMP;
+    QComboBox *dispoEMP;
+    QPushButton *pushButton_ajouterEMP;
+    QWidget *widget_10;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_34;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -166,7 +216,7 @@ public:
         widget_12->setStyleSheet(QString::fromUtf8("background-color:#709CA7;"));
         label_3 = new QLabel(widget_12);
         label_3->setObjectName("label_3");
-        label_3->setGeometry(QRect(430, 20, 271, 31));
+        label_3->setGeometry(QRect(520, 20, 271, 31));
         QFont font1;
         font1.setFamilies({QString::fromUtf8("Yu Gothic")});
         font1.setPointSize(16);
@@ -209,17 +259,17 @@ public:
         QIcon icon2;
         icon2.addFile(QString::fromUtf8(":/Downloads/bell.svg"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
         btnRdvJour->setIcon(icon2);
-        groupBox = new QGroupBox(centralwidget);
-        groupBox->setObjectName("groupBox");
-        groupBox->setGeometry(QRect(140, 70, 1441, 661));
+        rdvbox = new QGroupBox(centralwidget);
+        rdvbox->setObjectName("rdvbox");
+        rdvbox->setGeometry(QRect(140, 70, 1441, 661));
         QFont font3;
         font3.setFamilies({QString::fromUtf8("Perpetua")});
         font3.setPointSize(18);
         font3.setBold(true);
         font3.setItalic(true);
-        groupBox->setFont(font3);
-        groupBox->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        widget_14 = new QWidget(groupBox);
+        rdvbox->setFont(font3);
+        rdvbox->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        widget_14 = new QWidget(rdvbox);
         widget_14->setObjectName("widget_14");
         widget_14->setGeometry(QRect(10, 70, 261, 481));
         widget_14->setStyleSheet(QString::fromUtf8("border:1px solid black;\n"
@@ -393,7 +443,7 @@ public:
         QIcon icon5;
         icon5.addFile(QString::fromUtf8(":/Downloads/check-circle.svg"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
         addRDV->setIcon(icon5);
-        widget_18 = new QWidget(groupBox);
+        widget_18 = new QWidget(rdvbox);
         widget_18->setObjectName("widget_18");
         widget_18->setGeometry(QRect(310, 80, 1051, 491));
         widget_19 = new QWidget(widget_18);
@@ -577,10 +627,285 @@ public:
         label_4->setStyleSheet(QString::fromUtf8("background-color:#709CA7;"));
         pushButton_10 = new QPushButton(centralwidget);
         pushButton_10->setObjectName("pushButton_10");
-        pushButton_10->setGeometry(QRect(30, 160, 91, 21));
+        pushButton_10->setGeometry(QRect(0, 100, 141, 51));
         pushButton_10->setStyleSheet(QString::fromUtf8("background-color:#709CA7;\n"
 "border radius:10px"));
+        pushButton_11 = new QPushButton(centralwidget);
+        pushButton_11->setObjectName("pushButton_11");
+        pushButton_11->setGeometry(QRect(0, 180, 141, 51));
+        pushButton_11->setStyleSheet(QString::fromUtf8("background-color:#709CA7;\n"
+"border radius:10px"));
+        pushButton_12 = new QPushButton(centralwidget);
+        pushButton_12->setObjectName("pushButton_12");
+        pushButton_12->setGeometry(QRect(0, 270, 141, 51));
+        pushButton_12->setStyleSheet(QString::fromUtf8("background-color:#709CA7;\n"
+"border radius:10px"));
+        pushButton_13 = new QPushButton(centralwidget);
+        pushButton_13->setObjectName("pushButton_13");
+        pushButton_13->setGeometry(QRect(0, 360, 141, 51));
+        pushButton_13->setStyleSheet(QString::fromUtf8("background-color:#709CA7;\n"
+"border radius:10px"));
+        pushButton_14 = new QPushButton(centralwidget);
+        pushButton_14->setObjectName("pushButton_14");
+        pushButton_14->setGeometry(QRect(0, 450, 141, 51));
+        pushButton_14->setStyleSheet(QString::fromUtf8("background-color:#709CA7;\n"
+"border radius:10px"));
+        pushButton_15 = new QPushButton(centralwidget);
+        pushButton_15->setObjectName("pushButton_15");
+        pushButton_15->setGeometry(QRect(0, 540, 141, 51));
+        pushButton_15->setStyleSheet(QString::fromUtf8("background-color:#709CA7;\n"
+"border radius:10px"));
+        empbox = new QGroupBox(centralwidget);
+        empbox->setObjectName("empbox");
+        empbox->setGeometry(QRect(140, 70, 2351, 841));
+        QFont font7;
+        font7.setPointSize(11);
+        font7.setBold(true);
+        empbox->setFont(font7);
+        empbox->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
+        widget = new QWidget(empbox);
+        widget->setObjectName("widget");
+        widget->setGeometry(QRect(0, 20, 1351, 591));
+        widget->setStyleSheet(QString::fromUtf8("background-color:#ECF8F6;"));
+        widget_6 = new QWidget(widget);
+        widget_6->setObjectName("widget_6");
+        widget_6->setGeometry(QRect(310, 90, 871, 451));
+        widget_3 = new QWidget(widget_6);
+        widget_3->setObjectName("widget_3");
+        widget_3->setGeometry(QRect(50, 20, 671, 51));
+        frame_2 = new QFrame(widget_3);
+        frame_2->setObjectName("frame_2");
+        frame_2->setGeometry(QRect(10, 0, 281, 41));
+        frame_2->setStyleSheet(QString::fromUtf8("border :2px solid black;\n"
+"border-radius:20px;"));
+        frame_2->setFrameShape(QFrame::Shape::StyledPanel);
+        frame_2->setFrameShadow(QFrame::Shadow::Raised);
+        label_2 = new QLabel(frame_2);
+        label_2->setObjectName("label_2");
+        label_2->setGeometry(QRect(11, 11, 28, 22));
+        label_2->setStyleSheet(QString::fromUtf8("border:none;\n"
+"border-image: url(:/Downloads/search (2).svg);"));
+        label_2->setPixmap(QPixmap(QString::fromUtf8(":/Downloads/search.svg")));
+        lineEditEMP = new QLineEdit(frame_2);
+        lineEditEMP->setObjectName("lineEditEMP");
+        lineEditEMP->setGeometry(QRect(45, 11, 241, 22));
+        lineEditEMP->setStyleSheet(QString::fromUtf8("background-color:transparent;\n"
+"color: rgb(0, 0, 0);\n"
+"border:none;"));
+        telephoneSortButton = new QPushButton(widget_3);
+        telephoneSortButton->setObjectName("telephoneSortButton");
+        telephoneSortButton->setGeometry(QRect(320, 10, 101, 24));
+        telephoneSortButton->setFont(font6);
+        telephoneSortButton->setStyleSheet(QString::fromUtf8("color:black;\n"
+"background-color:#B8CBD0"));
+        QIcon icon10;
+        icon10.addFile(QString::fromUtf8(":/Downloads/align-justify.svg"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        telephoneSortButton->setIcon(icon10);
+        dispoSortButton = new QPushButton(widget_3);
+        dispoSortButton->setObjectName("dispoSortButton");
+        dispoSortButton->setGeometry(QRect(430, 10, 121, 24));
+        dispoSortButton->setFont(font6);
+        dispoSortButton->setStyleSheet(QString::fromUtf8("color:black;\n"
+"background-color:#B8CBD0"));
+        dispoSortButton->setIcon(icon10);
+        emailSortButton = new QPushButton(widget_3);
+        emailSortButton->setObjectName("emailSortButton");
+        emailSortButton->setGeometry(QRect(560, 10, 80, 24));
+        emailSortButton->setFont(font6);
+        emailSortButton->setStyleSheet(QString::fromUtf8("color:black;\n"
+"background-color:#B8CBD0"));
+        emailSortButton->setIcon(icon10);
+        widget_5 = new QWidget(widget_6);
+        widget_5->setObjectName("widget_5");
+        widget_5->setGeometry(QRect(80, 80, 281, 61));
+        horizontalLayout = new QHBoxLayout(widget_5);
+        horizontalLayout->setObjectName("horizontalLayout");
+        statbuttonEMP = new QPushButton(widget_5);
+        statbuttonEMP->setObjectName("statbuttonEMP");
+        statbuttonEMP->setStyleSheet(QString::fromUtf8("color:black;\n"
+"background-color:#B8CBD0"));
+        QIcon icon11;
+        icon11.addFile(QString::fromUtf8(":/Downloads/pie-chart.svg"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        statbuttonEMP->setIcon(icon11);
+
+        horizontalLayout->addWidget(statbuttonEMP);
+
+        pdfButtonEMP = new QPushButton(widget_5);
+        pdfButtonEMP->setObjectName("pdfButtonEMP");
+        pdfButtonEMP->setStyleSheet(QString::fromUtf8("color:black;\n"
+"background-color:#B8CBD0"));
+        QIcon icon12;
+        icon12.addFile(QString::fromUtf8(":/Downloads/file-text.svg"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        pdfButtonEMP->setIcon(icon12);
+
+        horizontalLayout->addWidget(pdfButtonEMP);
+
+        widget_4 = new QWidget(widget_6);
+        widget_4->setObjectName("widget_4");
+        widget_4->setGeometry(QRect(0, 160, 821, 271));
+        label_27 = new QLabel(widget_4);
+        label_27->setObjectName("label_27");
+        label_27->setGeometry(QRect(10, 10, 151, 21));
+        label_27->setFont(font5);
+        label_27->setStyleSheet(QString::fromUtf8("color:black;"));
+        tableViewEMP = new QTableView(widget_4);
+        tableViewEMP->setObjectName("tableViewEMP");
+        tableViewEMP->setGeometry(QRect(10, 50, 801, 211));
+        tableViewEMP->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);\n"
+""));
+        widget_7 = new QWidget(widget);
+        widget_7->setObjectName("widget_7");
+        widget_7->setGeometry(QRect(10, 100, 281, 451));
+        widget_7->setStyleSheet(QString::fromUtf8("border:1px solid black;\n"
+"border-radius:30px;\n"
+"background-color:none;"));
+        widget_8 = new QWidget(widget_7);
+        widget_8->setObjectName("widget_8");
+        widget_8->setGeometry(QRect(10, 20, 111, 391));
+        widget_8->setStyleSheet(QString::fromUtf8("border:none;"));
+        verticalLayout = new QVBoxLayout(widget_8);
+        verticalLayout->setObjectName("verticalLayout");
+        label_28 = new QLabel(widget_8);
+        label_28->setObjectName("label_28");
+        label_28->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        verticalLayout->addWidget(label_28);
+
+        label_29 = new QLabel(widget_8);
+        label_29->setObjectName("label_29");
+        label_29->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        verticalLayout->addWidget(label_29);
+
+        label_30 = new QLabel(widget_8);
+        label_30->setObjectName("label_30");
+        label_30->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        verticalLayout->addWidget(label_30);
+
+        label_31 = new QLabel(widget_8);
+        label_31->setObjectName("label_31");
+        label_31->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        verticalLayout->addWidget(label_31);
+
+        label_32 = new QLabel(widget_8);
+        label_32->setObjectName("label_32");
+        label_32->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        verticalLayout->addWidget(label_32);
+
+        label_33 = new QLabel(widget_8);
+        label_33->setObjectName("label_33");
+        label_33->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        verticalLayout->addWidget(label_33);
+
+        label_48 = new QLabel(widget_8);
+        label_48->setObjectName("label_48");
+        label_48->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        verticalLayout->addWidget(label_48);
+
+        label_49 = new QLabel(widget_8);
+        label_49->setObjectName("label_49");
+        label_49->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        verticalLayout->addWidget(label_49);
+
+        label_50 = new QLabel(widget_8);
+        label_50->setObjectName("label_50");
+        label_50->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        verticalLayout->addWidget(label_50);
+
+        widget_9 = new QWidget(widget_7);
+        widget_9->setObjectName("widget_9");
+        widget_9->setGeometry(QRect(130, 20, 151, 391));
+        widget_9->setStyleSheet(QString::fromUtf8("border:none;\n"
+"background-color:transparent;"));
+        lineEdit_3 = new QLineEdit(widget_9);
+        lineEdit_3->setObjectName("lineEdit_3");
+        lineEdit_3->setGeometry(QRect(9, 45, 106, 18));
+        lineEdit_3->setStyleSheet(QString::fromUtf8("border:1px;"));
+        frame_4 = new QFrame(widget_9);
+        frame_4->setObjectName("frame_4");
+        frame_4->setGeometry(QRect(9, 10, 131, 371));
+        frame_4->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
+        frame_4->setFrameShape(QFrame::Shape::StyledPanel);
+        frame_4->setFrameShadow(QFrame::Shadow::Raised);
+        lineEdit_nomEMP = new QLineEdit(frame_4);
+        lineEdit_nomEMP->setObjectName("lineEdit_nomEMP");
+        lineEdit_nomEMP->setGeometry(QRect(10, 9, 113, 24));
+        lineEdit_nomEMP->setStyleSheet(QString::fromUtf8("border:1px solid black;\n"
+"color: rgb(0, 0, 0);"));
+        lineEdit_prenomEMP = new QLineEdit(frame_4);
+        lineEdit_prenomEMP->setObjectName("lineEdit_prenomEMP");
+        lineEdit_prenomEMP->setGeometry(QRect(10, 53, 113, 24));
+        lineEdit_prenomEMP->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        lineEdit_emailEMP = new QLineEdit(frame_4);
+        lineEdit_emailEMP->setObjectName("lineEdit_emailEMP");
+        lineEdit_emailEMP->setGeometry(QRect(10, 92, 113, 24));
+        lineEdit_emailEMP->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        lineEdit_telephoneEMP = new QLineEdit(frame_4);
+        lineEdit_telephoneEMP->setObjectName("lineEdit_telephoneEMP");
+        lineEdit_telephoneEMP->setGeometry(QRect(10, 133, 113, 24));
+        lineEdit_telephoneEMP->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        lineEdit_experienceEMP = new QLineEdit(frame_4);
+        lineEdit_experienceEMP->setObjectName("lineEdit_experienceEMP");
+        lineEdit_experienceEMP->setGeometry(QRect(10, 216, 113, 24));
+        lineEdit_experienceEMP->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        lineEdit_loginEMP = new QLineEdit(frame_4);
+        lineEdit_loginEMP->setObjectName("lineEdit_loginEMP");
+        lineEdit_loginEMP->setGeometry(QRect(10, 300, 113, 24));
+        lineEdit_loginEMP->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        lineEdit_mdpEMP = new QLineEdit(frame_4);
+        lineEdit_mdpEMP->setObjectName("lineEdit_mdpEMP");
+        lineEdit_mdpEMP->setGeometry(QRect(10, 340, 113, 24));
+        lineEdit_mdpEMP->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        specialiteEMP = new QComboBox(frame_4);
+        specialiteEMP->addItem(QString());
+        specialiteEMP->addItem(QString());
+        specialiteEMP->addItem(QString());
+        specialiteEMP->addItem(QString());
+        specialiteEMP->addItem(QString());
+        specialiteEMP->setObjectName("specialiteEMP");
+        specialiteEMP->setGeometry(QRect(10, 170, 111, 28));
+        specialiteEMP->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        dispoEMP = new QComboBox(frame_4);
+        dispoEMP->addItem(QString());
+        dispoEMP->addItem(QString());
+        dispoEMP->setObjectName("dispoEMP");
+        dispoEMP->setGeometry(QRect(10, 260, 111, 28));
+        dispoEMP->setStyleSheet(QString::fromUtf8("border:1px solid black;"));
+        pushButton_ajouterEMP = new QPushButton(widget_7);
+        pushButton_ajouterEMP->setObjectName("pushButton_ajouterEMP");
+        pushButton_ajouterEMP->setGeometry(QRect(160, 420, 83, 29));
+        pushButton_ajouterEMP->setFont(font2);
+        pushButton_ajouterEMP->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
+        widget_10 = new QWidget(widget);
+        widget_10->setObjectName("widget_10");
+        widget_10->setGeometry(QRect(90, 86, 111, 41));
+        horizontalLayout_2 = new QHBoxLayout(widget_10);
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        label_34 = new QLabel(widget_10);
+        label_34->setObjectName("label_34");
+        label_34->setFont(font5);
+        label_34->setStyleSheet(QString::fromUtf8("color:black;"));
+
+        horizontalLayout_2->addWidget(label_34);
+
         MainWindow->setCentralWidget(centralwidget);
+        widget_12->raise();
+        label_4->raise();
+        pushButton_10->raise();
+        pushButton_11->raise();
+        pushButton_12->raise();
+        pushButton_13->raise();
+        pushButton_14->raise();
+        pushButton_15->raise();
+        rdvbox->raise();
+        empbox->raise();
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
@@ -593,11 +918,11 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "rdv", nullptr));
-        label_3->setText(QCoreApplication::translate("MainWindow", "Gestion Des Rendez-vous", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "USOconsulting", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "Log Out", nullptr));
         pushButton_4->setText(QCoreApplication::translate("MainWindow", "Home", nullptr));
         btnRdvJour->setText(QString());
-        groupBox->setTitle(QCoreApplication::translate("MainWindow", "Gestion Des Rendez-Vous", nullptr));
+        rdvbox->setTitle(QCoreApplication::translate("MainWindow", "Gestion Des Rendez-Vous", nullptr));
         label_42->setText(QCoreApplication::translate("MainWindow", "Nom client :", nullptr));
         label_43->setText(QCoreApplication::translate("MainWindow", "Date :", nullptr));
         label_44->setText(QCoreApplication::translate("MainWindow", "Heure :", nullptr));
@@ -621,7 +946,50 @@ public:
         dateRDV_2->setText(QCoreApplication::translate("MainWindow", "date", nullptr));
         label_36->setText(QCoreApplication::translate("MainWindow", "calenderier", nullptr));
         label_4->setText(QString());
-        pushButton_10->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        pushButton_10->setText(QCoreApplication::translate("MainWindow", "Employe", nullptr));
+        pushButton_11->setText(QCoreApplication::translate("MainWindow", "Client ", nullptr));
+        pushButton_12->setText(QCoreApplication::translate("MainWindow", "Rendez-Vous", nullptr));
+        pushButton_13->setText(QCoreApplication::translate("MainWindow", "Formation", nullptr));
+        pushButton_14->setText(QCoreApplication::translate("MainWindow", "Projet", nullptr));
+        pushButton_15->setText(QCoreApplication::translate("MainWindow", "Ressources", nullptr));
+        empbox->setTitle(QCoreApplication::translate("MainWindow", "Gestion Des Emplyes", nullptr));
+        label_2->setText(QString());
+        lineEditEMP->setPlaceholderText(QCoreApplication::translate("MainWindow", "  Rechercher...", nullptr));
+        telephoneSortButton->setText(QCoreApplication::translate("MainWindow", "Telephone", nullptr));
+        dispoSortButton->setText(QCoreApplication::translate("MainWindow", "Disponibilite", nullptr));
+        emailSortButton->setText(QCoreApplication::translate("MainWindow", "email", nullptr));
+        statbuttonEMP->setText(QCoreApplication::translate("MainWindow", "Statestiques", nullptr));
+        pdfButtonEMP->setText(QCoreApplication::translate("MainWindow", "Pdf", nullptr));
+        label_27->setText(QCoreApplication::translate("MainWindow", "Employees", nullptr));
+        label_28->setText(QCoreApplication::translate("MainWindow", "Nom :", nullptr));
+        label_29->setText(QCoreApplication::translate("MainWindow", "Prenom :", nullptr));
+        label_30->setText(QCoreApplication::translate("MainWindow", "Email :", nullptr));
+        label_31->setText(QCoreApplication::translate("MainWindow", "Telephone :", nullptr));
+        label_32->setText(QCoreApplication::translate("MainWindow", "specialite :", nullptr));
+        label_33->setText(QCoreApplication::translate("MainWindow", "Experience :", nullptr));
+        label_48->setText(QCoreApplication::translate("MainWindow", "Disponibilt\303\251:", nullptr));
+        label_49->setText(QCoreApplication::translate("MainWindow", "login:", nullptr));
+        label_50->setText(QCoreApplication::translate("MainWindow", "Mdp:", nullptr));
+        lineEdit_nomEMP->setPlaceholderText(QCoreApplication::translate("MainWindow", " taper le nom... ", nullptr));
+        lineEdit_prenomEMP->setPlaceholderText(QCoreApplication::translate("MainWindow", "taper le prenom...", nullptr));
+        lineEdit_emailEMP->setPlaceholderText(QCoreApplication::translate("MainWindow", "email.....", nullptr));
+        lineEdit_telephoneEMP->setPlaceholderText(QCoreApplication::translate("MainWindow", "+216....", nullptr));
+        lineEdit_experienceEMP->setPlaceholderText(QCoreApplication::translate("MainWindow", "experience....", nullptr));
+        lineEdit_loginEMP->setPlaceholderText(QCoreApplication::translate("MainWindow", "user name....", nullptr));
+        lineEdit_mdpEMP->setPlaceholderText(QCoreApplication::translate("MainWindow", "taper le mdp...", nullptr));
+        specialiteEMP->setItemText(0, QCoreApplication::translate("MainWindow", "Chef de projet ", nullptr));
+        specialiteEMP->setItemText(1, QCoreApplication::translate("MainWindow", "Responsable Service Client", nullptr));
+        specialiteEMP->setItemText(2, QCoreApplication::translate("MainWindow", "Responsable Ressources Humaines", nullptr));
+        specialiteEMP->setItemText(3, QCoreApplication::translate("MainWindow", "Responsable Commercial", nullptr));
+        specialiteEMP->setItemText(4, QCoreApplication::translate("MainWindow", "\n"
+"Responsable Formation\n"
+"", nullptr));
+
+        dispoEMP->setItemText(0, QCoreApplication::translate("MainWindow", "Disponible", nullptr));
+        dispoEMP->setItemText(1, QCoreApplication::translate("MainWindow", "Occupe", nullptr));
+
+        pushButton_ajouterEMP->setText(QCoreApplication::translate("MainWindow", "Confirmer", nullptr));
+        label_34->setText(QCoreApplication::translate("MainWindow", "   Ajouter", nullptr));
     } // retranslateUi
 
 };

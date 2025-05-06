@@ -7,6 +7,31 @@
 *****************************************************************************/
 
 #include "../../../mainwindow.h"
+#include <QtGui/qtextcursor.h>
+#include <QtGui/qscreen.h>
+#include <QtCharts/qlineseries.h>
+#include <QtCharts/qabstractbarseries.h>
+#include <QtCharts/qvbarmodelmapper.h>
+#include <QtCharts/qboxplotseries.h>
+#include <QtCharts/qcandlestickseries.h>
+#include <QtCore/qabstractitemmodel.h>
+#include <QtCharts/qpieseries.h>
+#include <QtCore/qabstractitemmodel.h>
+#include <QtCharts/qboxplotseries.h>
+#include <QtCore/qabstractitemmodel.h>
+#include <QtCharts/qpieseries.h>
+#include <QtCharts/qpieseries.h>
+#include <QtCore/qabstractitemmodel.h>
+#include <QtCharts/qxyseries.h>
+#include <QtCharts/qxyseries.h>
+#include <QtCore/qabstractitemmodel.h>
+#include <QtCore/qabstractitemmodel.h>
+#include <QtCharts/qboxplotseries.h>
+#include <QtCore/qabstractitemmodel.h>
+#include <QtCharts/qpieseries.h>
+#include <QtCore/qabstractitemmodel.h>
+#include <QtCharts/qxyseries.h>
+#include <QtCore/qabstractitemmodel.h>
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>
@@ -33,6 +58,237 @@ QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
 
 #ifdef QT_MOC_HAS_STRINGDATA
+struct qt_meta_stringdata_CLASSButtonDelegateENDCLASS_t {};
+constexpr auto qt_meta_stringdata_CLASSButtonDelegateENDCLASS = QtMocHelpers::stringData(
+    "ButtonDelegate",
+    "deleteButtonClicked",
+    "",
+    "QModelIndex",
+    "index",
+    "editButtonClicked"
+);
+#else  // !QT_MOC_HAS_STRINGDATA
+#error "qtmochelpers.h not found or too old."
+#endif // !QT_MOC_HAS_STRINGDATA
+} // unnamed namespace
+
+Q_CONSTINIT static const uint qt_meta_data_CLASSButtonDelegateENDCLASS[] = {
+
+ // content:
+      12,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       2,   14, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    1,   26,    2, 0x06,    1 /* Public */,
+       5,    1,   29,    2, 0x06,    3 /* Public */,
+
+ // signals: parameters
+    QMetaType::Void, 0x80000000 | 3,    4,
+    QMetaType::Void, 0x80000000 | 3,    4,
+
+       0        // eod
+};
+
+Q_CONSTINIT const QMetaObject ButtonDelegate::staticMetaObject = { {
+    QMetaObject::SuperData::link<QStyledItemDelegate::staticMetaObject>(),
+    qt_meta_stringdata_CLASSButtonDelegateENDCLASS.offsetsAndSizes,
+    qt_meta_data_CLASSButtonDelegateENDCLASS,
+    qt_static_metacall,
+    nullptr,
+    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSButtonDelegateENDCLASS_t,
+        // Q_OBJECT / Q_GADGET
+        QtPrivate::TypeAndForceComplete<ButtonDelegate, std::true_type>,
+        // method 'deleteButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
+        // method 'editButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>
+    >,
+    nullptr
+} };
+
+void ButtonDelegate::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<ButtonDelegate *>(_o);
+        (void)_t;
+        switch (_id) {
+        case 0: _t->deleteButtonClicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 1: _t->editButtonClicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (ButtonDelegate::*)(const QModelIndex & );
+            if (_t _q_method = &ButtonDelegate::deleteButtonClicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (ButtonDelegate::*)(const QModelIndex & );
+            if (_t _q_method = &ButtonDelegate::editButtonClicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 1;
+                return;
+            }
+        }
+    }
+}
+
+const QMetaObject *ButtonDelegate::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *ButtonDelegate::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_CLASSButtonDelegateENDCLASS.stringdata0))
+        return static_cast<void*>(this);
+    return QStyledItemDelegate::qt_metacast(_clname);
+}
+
+int ButtonDelegate::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = QStyledItemDelegate::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 2)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 2;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 2)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 2;
+    }
+    return _id;
+}
+
+// SIGNAL 0
+void ButtonDelegate::deleteButtonClicked(const QModelIndex & _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void ButtonDelegate::editButtonClicked(const QModelIndex & _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+namespace {
+
+#ifdef QT_MOC_HAS_STRINGDATA
+struct qt_meta_stringdata_CLASSEditEmployeeDialogENDCLASS_t {};
+constexpr auto qt_meta_stringdata_CLASSEditEmployeeDialogENDCLASS = QtMocHelpers::stringData(
+    "EditEmployeeDialog",
+    "on_saveButton_clicked",
+    "",
+    "on_cancelButton_clicked"
+);
+#else  // !QT_MOC_HAS_STRINGDATA
+#error "qtmochelpers.h not found or too old."
+#endif // !QT_MOC_HAS_STRINGDATA
+} // unnamed namespace
+
+Q_CONSTINIT static const uint qt_meta_data_CLASSEditEmployeeDialogENDCLASS[] = {
+
+ // content:
+      12,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       2,   14, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+ // slots: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    0,   26,    2, 0x08,    1 /* Private */,
+       3,    0,   27,    2, 0x08,    2 /* Private */,
+
+ // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+
+       0        // eod
+};
+
+Q_CONSTINIT const QMetaObject EditEmployeeDialog::staticMetaObject = { {
+    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
+    qt_meta_stringdata_CLASSEditEmployeeDialogENDCLASS.offsetsAndSizes,
+    qt_meta_data_CLASSEditEmployeeDialogENDCLASS,
+    qt_static_metacall,
+    nullptr,
+    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSEditEmployeeDialogENDCLASS_t,
+        // Q_OBJECT / Q_GADGET
+        QtPrivate::TypeAndForceComplete<EditEmployeeDialog, std::true_type>,
+        // method 'on_saveButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_cancelButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
+    >,
+    nullptr
+} };
+
+void EditEmployeeDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<EditEmployeeDialog *>(_o);
+        (void)_t;
+        switch (_id) {
+        case 0: _t->on_saveButton_clicked(); break;
+        case 1: _t->on_cancelButton_clicked(); break;
+        default: ;
+        }
+    }
+    (void)_a;
+}
+
+const QMetaObject *EditEmployeeDialog::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *EditEmployeeDialog::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_CLASSEditEmployeeDialogENDCLASS.stringdata0))
+        return static_cast<void*>(this);
+    return QDialog::qt_metacast(_clname);
+}
+
+int EditEmployeeDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = QDialog::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 2)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 2;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 2)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 2;
+    }
+    return _id;
+}
+namespace {
+
+#ifdef QT_MOC_HAS_STRINGDATA
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::stringData(
     "MainWindow",
@@ -43,6 +299,18 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "on_tab_affichageRDV_clicked",
     "QModelIndex",
     "index",
+    "on_pushButton_ajouterEMP_clicked",
+    "onDeleteButtonClicked",
+    "onEditButtonClicked",
+    "on_lineEditEMP_textChanged",
+    "arg1",
+    "on_dispoSortButton_clicked",
+    "on_emailSortButton_clicked",
+    "on_telephoneSortButton_clicked",
+    "on_pdfButtonEMP_clicked",
+    "on_statbuttonEMP_clicked",
+    "on_logoutButton_clicked",
+    "handleSerialData",
     "on_rechercherRDV_textChanged",
     "text",
     "on_pdfRDV_clicked",
@@ -52,7 +320,6 @@ constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::string
     "checkUpcomingRdvNotification",
     "updateRdvButton",
     "on_btnRdvJour_clicked",
-    "handleSerialData",
     "on_calander_rdv_clicked",
     "date",
     "on_calenderierRDV_clicked"
@@ -68,7 +335,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      25,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -76,28 +343,41 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  104,    2, 0x08,    1 /* Private */,
-       3,    0,  105,    2, 0x08,    2 /* Private */,
-       4,    0,  106,    2, 0x08,    3 /* Private */,
-       5,    1,  107,    2, 0x08,    4 /* Private */,
-       8,    1,  110,    2, 0x08,    6 /* Private */,
-      10,    0,  113,    2, 0x08,    8 /* Private */,
-      11,    0,  114,    2, 0x08,    9 /* Private */,
-      12,    0,  115,    2, 0x08,   10 /* Private */,
-      13,    0,  116,    2, 0x08,   11 /* Private */,
-      14,    0,  117,    2, 0x08,   12 /* Private */,
-      15,    0,  118,    2, 0x08,   13 /* Private */,
-      16,    0,  119,    2, 0x08,   14 /* Private */,
-      17,    0,  120,    2, 0x08,   15 /* Private */,
-      18,    1,  121,    2, 0x08,   16 /* Private */,
-      20,    0,  124,    2, 0x08,   18 /* Private */,
+       1,    0,  164,    2, 0x08,    1 /* Private */,
+       3,    0,  165,    2, 0x08,    2 /* Private */,
+       4,    0,  166,    2, 0x08,    3 /* Private */,
+       5,    1,  167,    2, 0x08,    4 /* Private */,
+       8,    0,  170,    2, 0x08,    6 /* Private */,
+       9,    1,  171,    2, 0x08,    7 /* Private */,
+      10,    1,  174,    2, 0x08,    9 /* Private */,
+      11,    1,  177,    2, 0x08,   11 /* Private */,
+      13,    0,  180,    2, 0x08,   13 /* Private */,
+      14,    0,  181,    2, 0x08,   14 /* Private */,
+      15,    0,  182,    2, 0x08,   15 /* Private */,
+      16,    0,  183,    2, 0x08,   16 /* Private */,
+      17,    0,  184,    2, 0x08,   17 /* Private */,
+      18,    0,  185,    2, 0x08,   18 /* Private */,
+      19,    0,  186,    2, 0x08,   19 /* Private */,
+      20,    1,  187,    2, 0x08,   20 /* Private */,
+      22,    0,  190,    2, 0x08,   22 /* Private */,
+      23,    0,  191,    2, 0x08,   23 /* Private */,
+      24,    0,  192,    2, 0x08,   24 /* Private */,
+      25,    0,  193,    2, 0x08,   25 /* Private */,
+      26,    0,  194,    2, 0x08,   26 /* Private */,
+      27,    0,  195,    2, 0x08,   27 /* Private */,
+      28,    0,  196,    2, 0x08,   28 /* Private */,
+      29,    1,  197,    2, 0x08,   29 /* Private */,
+      31,    0,  200,    2, 0x08,   31 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 6,    7,
-    QMetaType::Void, QMetaType::QString,    9,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 6,    7,
+    QMetaType::Void, 0x80000000 | 6,    7,
+    QMetaType::Void, QMetaType::QString,   12,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -105,8 +385,15 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMainWindowENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   21,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QDate,   19,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QDate,   30,
     QMetaType::Void,
 
        0        // eod
@@ -130,6 +417,31 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'on_tab_affichageRDV_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
+        // method 'on_pushButton_ajouterEMP_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'onDeleteButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
+        // method 'onEditButtonClicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QModelIndex &, std::false_type>,
+        // method 'on_lineEditEMP_textChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
+        // method 'on_dispoSortButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_emailSortButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_telephoneSortButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_pdfButtonEMP_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_statbuttonEMP_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_logoutButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'handleSerialData'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_rechercherRDV_textChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QString &, std::false_type>,
@@ -146,8 +458,6 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
         // method 'updateRdvButton'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_btnRdvJour_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'handleSerialData'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_calander_rdv_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -168,17 +478,27 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->on_addRDV_clicked(); break;
         case 2: _t->on_suppRDV_clicked(); break;
         case 3: _t->on_tab_affichageRDV_clicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
-        case 4: _t->on_rechercherRDV_textChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 5: _t->on_pdfRDV_clicked(); break;
-        case 6: _t->on_modeRDV_2_clicked(); break;
-        case 7: _t->on_dateRDV_2_clicked(); break;
-        case 8: _t->on_statbuttonRDV_clicked(); break;
-        case 9: _t->checkUpcomingRdvNotification(); break;
-        case 10: _t->updateRdvButton(); break;
-        case 11: _t->on_btnRdvJour_clicked(); break;
-        case 12: _t->handleSerialData(); break;
-        case 13: _t->on_calander_rdv_clicked((*reinterpret_cast< std::add_pointer_t<QDate>>(_a[1]))); break;
-        case 14: _t->on_calenderierRDV_clicked(); break;
+        case 4: _t->on_pushButton_ajouterEMP_clicked(); break;
+        case 5: _t->onDeleteButtonClicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 6: _t->onEditButtonClicked((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 7: _t->on_lineEditEMP_textChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 8: _t->on_dispoSortButton_clicked(); break;
+        case 9: _t->on_emailSortButton_clicked(); break;
+        case 10: _t->on_telephoneSortButton_clicked(); break;
+        case 11: _t->on_pdfButtonEMP_clicked(); break;
+        case 12: _t->on_statbuttonEMP_clicked(); break;
+        case 13: _t->on_logoutButton_clicked(); break;
+        case 14: _t->handleSerialData(); break;
+        case 15: _t->on_rechercherRDV_textChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 16: _t->on_pdfRDV_clicked(); break;
+        case 17: _t->on_modeRDV_2_clicked(); break;
+        case 18: _t->on_dateRDV_2_clicked(); break;
+        case 19: _t->on_statbuttonRDV_clicked(); break;
+        case 20: _t->checkUpcomingRdvNotification(); break;
+        case 21: _t->updateRdvButton(); break;
+        case 22: _t->on_btnRdvJour_clicked(); break;
+        case 23: _t->on_calander_rdv_clicked((*reinterpret_cast< std::add_pointer_t<QDate>>(_a[1]))); break;
+        case 24: _t->on_calenderierRDV_clicked(); break;
         default: ;
         }
     }
@@ -203,13 +523,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 25)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 25;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 25)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 15;
+        _id -= 25;
     }
     return _id;
 }

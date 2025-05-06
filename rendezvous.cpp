@@ -261,3 +261,160 @@ int RendezVous::nombre_RDV()
     }
     return 0;
 }
+//hammaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+em::em(QString nomem,QString prenomem,QString emailem,int telephoneem,QString specialiteem,int expem,QString dispoem,QString log ,QString mdp)
+{
+
+    this->NOMEM=nomem;
+    this->PRENOMEM=prenomem;
+    this->EMAILEM=emailem;
+    this->TELEPHONEEM=telephoneem;
+    this->SPECIALITEEM=specialiteem;
+    this->EXPERIENCEEM=expem;
+    this->DISPONIBILITEEM=dispoem;
+    this->LOGIN=log;
+    this->MDP=mdp;
+
+}
+
+bool em::ajouterem()
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO EMPLOYE (NOM, PRENOM, EMAIL, TELEPHONE, SPECIALITE, EXPERIENCE, DISPONIBILITE, LOGIN, MDP) "
+                  "VALUES (:NOM, :PRENOM, :EMAIL, :TELEPHONE, :SPECIALITE, :EXPERIENCE, :DISPONIBILITE, :LOGIN, :MDP)");
+
+    query.bindValue(":NOM", NOMEM);
+    query.bindValue(":PRENOM", PRENOMEM);
+    query.bindValue(":EMAIL", EMAILEM);
+    query.bindValue(":TELEPHONE", TELEPHONEEM);
+    query.bindValue(":SPECIALITE", SPECIALITEEM);
+    query.bindValue(":EXPERIENCE", EXPERIENCEEM);
+    query.bindValue(":DISPONIBILITE", DISPONIBILITEEM);
+    query.bindValue(":LOGIN", LOGIN);
+    query.bindValue(":MDP", MDP);
+
+    if (!query.exec()) {
+        qDebug() << "Query error:" << query.lastError().text();
+        return false;
+    }
+    return true;
+}
+QSqlQueryModel * em::afficherem()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery("SELECT  IDEMPLOYE, NOM, PRENOM, EMAIL, TELEPHONE, SPECIALITE, EXPERIENCE, DISPONIBILITE, LOGIN, MDP FROM EMPLOYE");
+
+
+    // Set column headers
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("IDEMPLOYE"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOM"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("PRENOM"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("EMAIL"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("TELEPHONE"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("SPECIALITE"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("EXPERIENCE"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("DISPONIBILITE"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("LOGIN"));
+    model->setHeaderData(9, Qt::Horizontal, QObject::tr("MDP"));
+    // Add empty columns for buttons
+    model->insertColumn(10); // Column 10: Supprimer
+    model->insertColumn(11); // Column 11: Modifier
+
+    // Set headers for the new columns
+    model->setHeaderData(10, Qt::Horizontal, QObject::tr("Supprimer"));
+    model->setHeaderData(11, Qt::Horizontal, QObject::tr("Modifier"));
+
+
+
+    return model;
+}
+bool em::supprimerem(int IDEMPLOYE)
+{
+    QSqlQuery query;
+    QString res=QString::number(IDEMPLOYE);
+    query.prepare("Delete from EMPLOYE where IDEMPLOYE= :IDEMPLOYE");
+    query.bindValue(":IDEMPLOYE",res);
+
+
+    return query.exec();
+}
+// Update employee record
+bool em::modifierem(int IDEMPLOYE, QString nomem, QString prenomem, QString emailem, int telephoneem, QString specialiteem, int expem, QString dispoem, QString log, QString mdp)
+{
+    QSqlQuery query;
+    query.prepare("UPDATE EMPLOYE SET NOM = :NOM, PRENOM = :PRENOM, EMAIL = :EMAIL, TELEPHONE = :TELEPHONE, "
+                  "SPECIALITE = :SPECIALITE, EXPERIENCE = :EXPERIENCE, DISPONIBILITE = :DISPONIBILITE, "
+                  "LOGIN = :LOGIN, MDP = :MDP WHERE IDEMPLOYE = :IDEMPLOYE");
+
+    query.bindValue(":NOM", nomem);
+    query.bindValue(":PRENOM", prenomem);
+    query.bindValue(":EMAIL", emailem);
+    query.bindValue(":TELEPHONE", telephoneem);
+    query.bindValue(":SPECIALITE", specialiteem);
+    query.bindValue(":EXPERIENCE", expem);
+    query.bindValue(":DISPONIBILITE", dispoem);
+    query.bindValue(":LOGIN", log);
+    query.bindValue(":MDP", mdp);
+    query.bindValue(":IDEMPLOYE", IDEMPLOYE);
+
+    if (!query.exec()) {
+        qDebug() << "Update error:" << query.lastError().text();
+        return false;
+    }
+    return true;
+}
+QSqlQueryModel* em::Trier_Employe(QString critere) {
+    QSqlQueryModel* model = new QSqlQueryModel();
+    QString queryString = "SELECT IDEMPLOYE, NOM, PRENOM, EMAIL, TELEPHONE, SPECIALITE, "
+                          "EXPERIENCE, DISPONIBILITE, LOGIN, MDP FROM EMPLOYE ";
+
+    if (critere == "DISPONIBILITE") {
+        queryString += "ORDER BY DISPONIBILITE ASC";
+    }
+    else if (critere == "DISPONIBILITE_DESC") {
+        queryString += "ORDER BY DISPONIBILITE DESC";
+    }
+    else if (critere == "EMAIL") {
+        queryString += "ORDER BY EMAIL ASC";
+    }
+    else if (critere == "EMAIL_DESC") {
+        queryString += "ORDER BY EMAIL DESC";
+    }
+    else if (critere == "TELEPHONE") {
+        queryString += "ORDER BY TELEPHONE ASC";
+    }
+    else if (critere == "TELEPHONE_DESC") {
+        queryString += "ORDER BY TELEPHONE DESC";
+    }
+    else {
+        return afficherem();
+    }
+
+    // Use the modern setQuery() approach
+    model->setQuery(queryString);
+
+    if (model->lastError().isValid()) {
+        qDebug() << "Sorting error:" << model->lastError().text();
+        delete model;
+        return nullptr;
+    }
+
+    // Set headers
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("IDEMPLOYE"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOM"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("PRENOM"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("EMAIL"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("TELEPHONE"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("SPECIALITE"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("EXPERIENCE"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("DISPONIBILITE"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("LOGIN"));
+    model->setHeaderData(9, Qt::Horizontal, QObject::tr("MDP"));
+
+    // Add button columns
+    model->insertColumn(10); // Supprimer
+    model->insertColumn(11); // Modifier
+
+    return model;
+}
+//hammaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

@@ -1,0 +1,10 @@
+debug/Arduino_RDV.o
+debug/connection.o
+debug/main.o
+debug/mainwindow.o
+debug/rendezvous.o
+debug/loginwindow.o
+debug/arduino_employe.o
+debug/qrc_ressources.o
+debug/moc_mainwindow.o
+debug/moc_loginwindow.o

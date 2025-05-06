@@ -1,13 +1,9 @@
-<<<<<<< HEAD:Employe.pro
-QT       += core gui charts sql printsupport widgets network
-=======
 QT       += core gui sql
 QT += printsupport
 QT += charts
 
 QT += gui
-QT += core gui widgets
->>>>>>> 0dd8fa2a00ddd5961ba08542899ebd609dcc60c1:rendezvous.pro
+QT += core gui widgets printsupport network
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -21,37 +17,25 @@ QT+= serialport
 SOURCES += \
     Arduino_RDV.cpp \
     connection.cpp \
-<<<<<<< HEAD:Employe.pro
-    editemployeedialog.cpp \
-    em.cpp \
-    loginwindow.cpp \
-=======
->>>>>>> 0dd8fa2a00ddd5961ba08542899ebd609dcc60c1:rendezvous.pro
     main.cpp \
     mainwindow.cpp \
-    rendezvous.cpp
+    rendezvous.cpp \
+    loginwindow.cpp \
+    arduino_employe.cpp
 
 HEADERS += \
     Arduino_RDV.h \
     connection.h \
-<<<<<<< HEAD:Employe.pro
-    editemployeedialog.h \
-    em.h \
-    employe.h \
-    loginwindow.h
-
-FORMS += \
-    editemployeedialog.ui \
-    employe.ui \
-    loginwindow.ui
-=======
     mainwindow.h \
     rendez-vous.h \
-    rendezvous.h
+    rendezvous.h  \
+    loginwindow.h \
+    arduino_employe.h
 
 FORMS += \
-    mainwindow.ui
->>>>>>> 0dd8fa2a00ddd5961ba08542899ebd609dcc60c1:rendezvous.pro
+    mainwindow.ui \
+    loginwindow.ui \
+    editemployeedialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -60,18 +44,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resource.qrc \
-<<<<<<< HEAD:Employe.pro
-    resource.qrc \
-    resource.qrc \
-    resource.qrc \
-    rsc.qrc
-
-DISTFILES += \
-    sendmail.py
-=======
     ressources.qrc
 
 
 DISTFILES += \
     ../../Downloads/bell.svg
->>>>>>> 0dd8fa2a00ddd5961ba08542899ebd609dcc60c1:rendezvous.pro

@@ -46,5 +46,55 @@ private:
     QDate date_rdv;
     QString heure_rdv, mode_rdv, objectif, nom_client,text;
 };
+//hammmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+class em
+{
 
+    QString NOMEM , PRENOMEM ;
+    QString EMAILEM ;
+    int TELEPHONEEM ;
+    QString SPECIALITEEM ;
+    int EXPERIENCEEM ;
+    QString DISPONIBILITEEM ;
+    QString LOGIN , MDP ;
+
+
+
+
+public:
+    //construct
+    em(){}
+    em(QString, QString, QString,int, QString,int, QString, QString, QString);
+    //getters
+
+    QString getNOMEM() {return NOMEM ;}
+    QString getPRENOMEM() {return PRENOMEM ;}
+    QString getEMAILEM() {return EMAILEM ;}
+    int getTELEPHONEEM() {return TELEPHONEEM;}
+    QString getSPECIALITEEM() {return SPECIALITEEM ;}
+    int getEXPERIENCEEM() {return EXPERIENCEEM;}
+    QString getDISPONIBILITEEM() {return DISPONIBILITEEM ;}
+    QString getLOGIN() {return LOGIN ;}
+    QString getMDP() {return MDP ;}
+    //setters
+
+    void setNOMEM(QString n){NOMEM=n;}
+    void setPRENOMEM(QString p){PRENOMEM=p;}
+    void setTELEPHONEEM(int tel){this->TELEPHONEEM=tel;}
+    void setSPECIALITEEM(QString s){SPECIALITEEM=s;}
+    void setEXPERIENCEEM(int exp){this->EXPERIENCEEM=exp;}
+    void setDISPONIBILITEEM(QString d){DISPONIBILITEEM=d;}
+    void setLOGIN(QString l){LOGIN=l;}
+    void setMDP(QString mp){MDP=mp;}
+    //fonctionnalites
+    bool ajouterem();
+    QSqlQueryModel * afficherem();
+    bool supprimerem(int);
+    bool modifierem(int IDEMPLOYE, QString NOMEM, QString preNOMEM, QString EMAILEM, int TELEPHONEEM, QString SPECIALITEEM, int exp, QString dispo, QString log, QString mdp);
+    QSqlQueryModel* Trier_Employe(QString critere);
+
+
+
+};
+//hammmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 #endif // RENDEZVOUS_H
